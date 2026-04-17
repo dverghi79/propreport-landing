@@ -1,0 +1,614 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PropReport — Automated weekly reports for CRE brokers on ClientLook & RealNex</title>
+  <meta name="description" content="Automated Certificate of Insurance generation from AMS360 for independent P&C agencies. Stop manually building ACORD 25s that come back with errors." />
+
+  <!-- Vercel Analytics -->
+  <script defer src="/_vercel/insights/script.js"></script>
+
+  <!-- Google Ads gtag — Consent Mode v2 (GDPR-safe) -->
+  <script>
+    var gtagLoaded = false;
+    function loadGtag() {
+      if (gtagLoaded) return;
+      gtagLoaded = true;
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function(){dataLayer.push(arguments);};
+      gtag('consent', 'default', {
+        ad_storage: 'denied',
+        analytics_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        wait_for_update: 500
+      });
+      if (localStorage.getItem('cookie_consent') === 'accepted') {
+        gtag('consent', 'update', {
+          ad_storage: 'granted',
+          analytics_storage: 'granted',
+          ad_user_data: 'granted',
+          ad_personalization: 'granted'
+        });
+      }
+      var s = document.createElement('script');
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=AW-18071371531';
+      s.async = true;
+      document.head.appendChild(s);
+      gtag('js', new Date());
+      gtag('config', 'AW-18071371531');
+    }
+    function grantConsent() {
+      localStorage.setItem('cookie_consent', 'accepted');
+      loadGtag();
+      if (typeof gtag === 'function') {
+        gtag('consent', 'update', {
+          ad_storage: 'granted',
+          analytics_storage: 'granted',
+          ad_user_data: 'granted',
+          ad_personalization: 'granted'
+        });
+      }
+      var cb = document.getElementById('consent-checkbox');
+      var btn = document.getElementById('submit-btn');
+      var inlineBook = document.getElementById('inline-booking');
+      var floatingBook = document.getElementById('floating-booking');
+      if (cb) cb.checked = true;
+      if (btn) { btn.disabled = false; btn.style.opacity = '1'; }
+      if (inlineBook) inlineBook.style.opacity = '1';
+      if (floatingBook) floatingBook.style.opacity = '1';
+      var bar = document.getElementById('consent-bar');
+      if (bar) bar.style.display = 'none';
+    }
+    function handleConsentCheckbox(cb) {
+      if (cb.checked) {
+        grantConsent();
+      } else {
+        var btn = document.getElementById('submit-btn');
+        var inlineBook = document.getElementById('inline-booking');
+        var floatingBook = document.getElementById('floating-booking');
+        if (btn) { btn.disabled = true; btn.style.opacity = '0.5'; }
+        if (inlineBook) inlineBook.style.opacity = '0.4';
+        if (floatingBook) floatingBook.style.opacity = '0.4';
+      }
+    }
+    loadGtag();
+    document.addEventListener('DOMContentLoaded', function() {
+      var consent = localStorage.getItem('cookie_consent');
+      if (consent === 'accepted') {
+        grantConsent();
+      } else {
+        var bar = document.getElementById('consent-bar');
+        if (bar) bar.style.display = 'flex';
+      }
+    });
+  </script>
+
+  <!-- Calendly popup widget -->
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" />
+  <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+
+  <!-- Fonts — Space Grotesk (headlines) + DM Sans (body) + JetBrains Mono (accents) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;1,9..40,400&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    body { font-family: 'DM Sans', system-ui, sans-serif; background: #070d14; color: #e8f0f8; margin: 0; }
+    h1,h2,h3,h4,h5,h6 { font-family: 'Space Grotesk', system-ui, sans-serif; }
+    html { scroll-behavior: smooth; }
+
+    .accent { color: #3b82f6; }
+    .border-line { border-top: 1px solid #0f1f2e; }
+
+    input, select, textarea { background: #0d1a26; border: 1px solid #0f1f2e; color: #e8f0f8; outline: none; border-radius: 0.375rem; }
+    input:focus, select:focus, textarea:focus { border-color: rgba(59,130,246,0.5); box-shadow: 0 0 0 1px rgba(59,130,246,0.25); }
+    ::placeholder { color: #94a8b8; }
+
+    .card { background: #0b1723; border: 1px solid #0f1f2e; border-radius: 0.5rem; }
+    .tag { background: transparent; border: 1px solid #0f1f2e; color: #94a8b8; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.05em; padding: 0.3rem 0.65rem; border-radius: 0.25rem; }
+
+    .btn-primary { background: #3b82f6; color: #070d14; font-weight: 700; border-radius: 0.375rem; padding: 0 2rem; height: 3rem; display: inline-flex; align-items: center; justify-content: center; font-size: 1rem; text-decoration: none; transition: background 0.15s; font-family: 'Space Grotesk', sans-serif; cursor: pointer; border: none; }
+    .btn-primary:hover { background: #2563eb; }
+    .btn-ghost { color: #94a8b8; padding: 0 1rem; height: 3rem; display: inline-flex; align-items: center; font-size: 1rem; text-decoration: none; transition: color 0.15s; }
+    .btn-ghost:hover { color: #e8f0f8; }
+
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    .grid-auto { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+    .grid-2col { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+    .step-icon { width: 2.25rem; height: 2.25rem; background: rgba(59,130,246,0.1); border-radius: 0.375rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+    @media (max-width: 768px) { .hide-mobile { display: none !important; } }
+  </style>
+</head>
+<body>
+
+  <!-- NAV / LOGO -->
+  <div style="max-width:1120px;margin:0 auto;padding:1.5rem 2rem 0;">
+    <div style="display:flex;align-items:center;gap:0.5rem;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+      </svg>
+      <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1rem;color:#e8f0f8;letter-spacing:-0.01em;">PropReport</span>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section style="max-width:1120px;margin:0 auto;padding:4rem 2rem 4rem;position:relative;">
+    <div style="display:inline-flex;align-items:center;gap:0.5rem;border:1px solid #0f1f2e;border-radius:0.25rem;padding:0.3rem 0.75rem;color:#94a8b8;font-size:0.8rem;margin-bottom:2rem;font-family:'JetBrains Mono',monospace;">
+      <span style="color:#3b82f6;">→</span> Early Access Open · Free to join
+    </div>
+
+    <div style="max-width:780px;">
+      <h1 style="font-size:clamp(2.25rem,5vw,3.75rem);line-height:1.08;font-weight:700;letter-spacing:-0.025em;margin-bottom:1.5rem;color:#e8f0f8;">
+        Stop rebuilding the same pipeline report every Monday morning. <span style="color:#3b82f6;">The Monday report that writes itself.</span>
+      </h1>
+      <p style="font-size:clamp(1.05rem,2vw,1.2rem);color:#94a8b8;line-height:1.7;max-width:600px;margin-bottom:2.5rem;">
+        Built for CRE brokers on ClientLook and RealNex who spend hours each week exporting data and formatting Excel reports. PropReport pulls your pipeline data and delivers a polished weekly report to your inbox — automatically.
+      </p>
+      <div style="display:flex;flex-wrap:wrap;gap:1rem;align-items:center;">
+        <a href="#waitlist" class="btn-primary">Get Early Access</a>
+        <a href="#how-it-works" class="btn-ghost">See how it works ↓</a>
+      </div>
+    </div>
+
+    <!-- Desktop accent — Report config preview -->
+    <div class="hide-mobile card" style="position:absolute;right:2rem;top:50%;transform:translateY(-50%);width:280px;padding:1.25rem;font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:#94a8b8;">
+      <div style="color:#3b82f6;margin-bottom:0.75rem;">// report_config.json</div>
+      <div><span style="color:#2563eb;">crm_source:</span> <span style="color:#e8f0f8;">"ClientLook"</span></div>
+      <div><span style="color:#2563eb;">report_type:</span> <span style="color:#e8f0f8;">"pipeline"</span></div>
+      <div><span style="color:#2563eb;">schedule:</span> <span style="color:#e8f0f8;">"Monday 7am"</span></div>
+      <div><span style="color:#2563eb;">recipients:</span> <span style="color:#e8f0f8;">["broker@firm"]</span></div>
+      <div><span style="color:#2563eb;">last_sent:</span> <span style="color:#e8f0f8;">"2026-04-14"</span></div>
+      <div><span style="color:#2563eb;">status:</span> <span style="color:#e8f0f8;">"delivered ✓"</span></div>
+      <div style="margin-top:0.75rem;color:#3b82f6;">→ next: Monday 7am</div>
+    </div>
+  </section>
+
+  <!-- DASHBOARD MOCKUP -->
+  <section class="border-line" style="padding:3rem 2rem 5rem;">
+    <div style="max-width:1120px;margin:0 auto;">
+      <p style="font-size:0.72rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#3b82f6;font-family:'JetBrains Mono',monospace;margin-bottom:1.5rem;text-align:center;">Early preview</p>
+
+      <!-- Browser chrome frame -->
+      <div style="max-width:900px;margin:0 auto;border:1px solid #0f1f2e;border-radius:0.75rem;overflow:hidden;background:#0b1723;">
+        <!-- Title bar -->
+        <div style="display:flex;align-items:center;gap:0.5rem;padding:0.75rem 1rem;background:#0a1420;border-bottom:1px solid #0f1f2e;">
+          <div style="display:flex;gap:0.375rem;">
+            <span style="width:10px;height:10px;border-radius:50%;background:#374151;"></span>
+            <span style="width:10px;height:10px;border-radius:50%;background:#374151;"></span>
+            <span style="width:10px;height:10px;border-radius:50%;background:#374151;"></span>
+          </div>
+          <div style="flex:1;text-align:center;font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:#64748b;">dashboard.leanaistudio.com/propReport</div>
+        </div>
+        <!-- Dashboard content -->
+        <div style="padding:1.5rem;display:grid;grid-template-columns:180px 1fr;gap:1.5rem;">
+          <!-- Sidebar -->
+          <div style="display:flex;flex-direction:column;gap:0.25rem;font-family:'DM Sans',sans-serif;font-size:0.8rem;">
+            <div style="padding:0.5rem 0.75rem;border-radius:0.25rem;background:rgba(59,130,246,0.08);color:#3b82f6;font-weight:500;">Dashboard</div>
+            <div style="padding:0.5rem 0.75rem;color:#64748b;">Generate Report</div>
+            <div style="padding:0.5rem 0.75rem;color:#64748b;">Reports Sent</div>
+            <div style="padding:0.5rem 0.75rem;color:#64748b;">Templates</div>
+            <div style="padding:0.5rem 0.75rem;color:#64748b;">Recipients</div>
+            <div style="padding:0.5rem 0.75rem;color:#64748b;">Audit Log</div>
+          </div>
+          <!-- Main area -->
+          <div>
+            <!-- KPI row -->
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.75rem;margin-bottom:1.5rem;">
+              <div style="background:#0d1a26;border:1px solid #0f1f2e;border-radius:0.375rem;padding:1rem;">
+                <div style="font-size:0.65rem;color:#64748b;text-transform:uppercase;letter-spacing:0.05em;font-family:'JetBrains Mono',monospace;margin-bottom:0.25rem;">Reports Sent</div>
+                <div style="font-size:1.5rem;font-weight:700;color:#e8f0f8;font-family:'Space Grotesk',sans-serif;">52</div>
+                <div style="font-size:0.65rem;color:#22c55e;">all delivered</div>
+              </div>
+              <div style="background:#0d1a26;border:1px solid #0f1f2e;border-radius:0.375rem;padding:1rem;">
+                <div style="font-size:0.65rem;color:#64748b;text-transform:uppercase;letter-spacing:0.05em;font-family:'JetBrains Mono',monospace;margin-bottom:0.25rem;">Active Properties</div>
+                <div style="font-size:1.5rem;font-weight:700;color:#e8f0f8;font-family:'Space Grotesk',sans-serif;">18</div>
+                <div style="font-size:0.65rem;color:#22c55e;">in pipeline</div>
+              </div>
+              <div style="background:#0d1a26;border:1px solid #0f1f2e;border-radius:0.375rem;padding:1rem;">
+                <div style="font-size:0.65rem;color:#64748b;text-transform:uppercase;letter-spacing:0.05em;font-family:'JetBrains Mono',monospace;margin-bottom:0.25rem;">Pipeline Value</div>
+                <div style="font-size:1.5rem;font-weight:700;color:#e8f0f8;font-family:'Space Grotesk',sans-serif;">$4.2M</div>
+                <div style="font-size:0.65rem;color:#22c55e;">tracked</div>
+              </div>
+              <div style="background:#0d1a26;border:1px solid #0f1f2e;border-radius:0.375rem;padding:1rem;">
+                <div style="font-size:0.65rem;color:#64748b;text-transform:uppercase;letter-spacing:0.05em;font-family:'JetBrains Mono',monospace;margin-bottom:0.25rem;">Avg Open Rate</div>
+                <div style="font-size:1.5rem;font-weight:700;color:#e8f0f8;font-family:'Space Grotesk',sans-serif;">94%</div>
+                <div style="font-size:0.65rem;color:#22c55e;">reports read</div>
+              </div>
+            </div>
+            <!-- Mini table -->
+            <div style="background:#0d1a26;border:1px solid #0f1f2e;border-radius:0.375rem;overflow:hidden;">
+              <div style="padding:0.75rem 1rem;border-bottom:1px solid #0f1f2e;font-family:'Space Grotesk',sans-serif;font-size:0.8rem;font-weight:600;color:#e8f0f8;">Recent Reports</div>
+              <table style="width:100%;border-collapse:collapse;font-size:0.75rem;">
+                <thead>
+                  <tr style="border-bottom:1px solid #0f1f2e;">
+                    <th style="text-align:left;padding:0.5rem 1rem;color:#64748b;font-weight:500;font-family:'JetBrains Mono',monospace;font-size:0.65rem;">Date</th>
+                    <th style="text-align:left;padding:0.5rem 1rem;color:#64748b;font-weight:500;font-family:'JetBrains Mono',monospace;font-size:0.65rem;">Template</th>
+                    <th style="text-align:left;padding:0.5rem 1rem;color:#64748b;font-weight:500;font-family:'JetBrains Mono',monospace;font-size:0.65rem;">Recipients</th>
+                    <th style="text-align:right;padding:0.5rem 1rem;color:#64748b;font-weight:500;font-family:'JetBrains Mono',monospace;font-size:0.65rem;">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="border-bottom:1px solid #0f1f2e;">
+                    <td style="padding:0.5rem 1rem;color:#e8f0f8;">Apr 14, 2026</td>
+                    <td style="padding:0.5rem 1rem;color:#94a8b8;">Weekly Pipeline</td>
+                    <td style="padding:0.5rem 1rem;color:#94a8b8;">3 brokers</td>
+                    <td style="text-align:right;padding:0.5rem 1rem;"><span style="background:rgba(34,197,94,0.1);color:#22c55e;padding:0.25rem 0.5rem;border-radius:0.25rem;font-size:0.65rem;">Delivered</span></td>
+                  </tr>
+                  <tr style="border-bottom:1px solid #0f1f2e;">
+                    <td style="padding:0.5rem 1rem;color:#e8f0f8;">Apr 7, 2026</td>
+                    <td style="padding:0.5rem 1rem;color:#94a8b8;">Weekly Pipeline</td>
+                    <td style="padding:0.5rem 1rem;color:#94a8b8;">3 brokers</td>
+                    <td style="text-align:right;padding:0.5rem 1rem;"><span style="background:rgba(34,197,94,0.1);color:#22c55e;padding:0.25rem 0.5rem;border-radius:0.25rem;font-size:0.65rem;">Delivered</span></td>
+                  </tr>
+                  <tr>
+                    <td style="padding:0.5rem 1rem;color:#e8f0f8;">Mar 31, 2026</td>
+                    <td style="padding:0.5rem 1rem;color:#94a8b8;">Weekly Pipeline</td>
+                    <td style="padding:0.5rem 1rem;color:#94a8b8;">3 brokers</td>
+                    <td style="text-align:right;padding:0.5rem 1rem;"><span style="background:rgba(34,197,94,0.1);color:#22c55e;padding:0.25rem 0.5rem;border-radius:0.25rem;font-size:0.65rem;">Delivered</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p style="text-align:center;font-size:0.8rem;color:#64748b;margin-top:1rem;font-style:italic;">Early preview of the PropReport dashboard</p>
+    </div>
+  </section>
+
+  <!-- PAIN SECTION -->
+  <section class="border-line" style="padding:5rem 2rem;">
+    <div style="max-width:1120px;margin:0 auto;">
+      <p style="font-size:0.72rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#3b82f6;font-family:'JetBrains Mono',monospace;margin-bottom:1rem;">The problem</p>
+      <h2 style="font-size:clamp(1.5rem,3vw,2.5rem);font-weight:700;letter-spacing:-0.015em;max-width:660px;margin-bottom:4rem;color:#e8f0f8;">
+        Manual report generation is a time sink — every single Monday.
+      </h2>
+
+      <div class="grid-auto" style="gap:3rem;">
+        <div>
+          <span style="display:block;font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:rgba(59,130,246,0.45);margin-bottom:0.75rem;">01</span>
+          <p style="font-size:1rem;color:#94a8b8;line-height:1.7;">
+            <strong style="color:#e8f0f8;">Every Monday = same Excel rebuild.</strong> You export data from ClientLook or RealNex, format it in Excel, add charts, and send it out. 2-3 hours per week. 100+ hours per year. Gone.
+          </p>
+        </div>
+        <div>
+          <span style="display:block;font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:rgba(59,130,246,0.45);margin-bottom:0.75rem;">02</span>
+          <p style="font-size:1rem;color:#94a8b8;line-height:1.7;">
+            <strong style="color:#e8f0f8;">ClientLook/RealNex reporting is too basic.</strong> The CRM's built-in reports don't give you the format or metrics brokers actually want. You end up customizing in Excel anyway.
+          </p>
+        </div>
+        <div>
+          <span style="display:block;font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:rgba(59,130,246,0.45);margin-bottom:0.75rem;">03</span>
+          <p style="font-size:1rem;color:#94a8b8;line-height:1.7;">
+            <strong style="color:#e8f0f8;">Manual reports have stale data by Wednesday.</strong> By the time brokers show them to principals, the numbers are outdated. Kills trust and credibility.
+          </p>
+        </div>
+        <div>
+          <span style="display:block;font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:rgba(59,130,246,0.45);margin-bottom:0.75rem;">04</span>
+          <p style="font-size:1rem;color:#94a8b8;line-height:1.7;">
+            <strong style="color:#e8f0f8;">Principals want polished reports, not raw exports.</strong> They expect professional, branded PDFs. Excel dumps don't cut it.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how-it-works" class="border-line" style="padding:5rem 2rem;">
+    <div style="max-width:1120px;margin:0 auto;">
+      <p style="font-size:0.72rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#3b82f6;font-family:'JetBrains Mono',monospace;margin-bottom:1rem;">How it works</p>
+      <h2 style="font-size:clamp(1.5rem,3vw,2.5rem);font-weight:700;letter-spacing:-0.015em;max-width:600px;margin-bottom:4rem;color:#e8f0f8;">
+        Connect your CRM. Customize once. Sit back.
+      </h2>
+
+      <div class="grid-auto" style="gap:1.5rem;">
+        <div class="card" style="padding:2rem;">
+          <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1.25rem;">
+            <div class="step-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+              </svg>
+            </div>
+            <span class="mono" style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:#94a8b8;">Step 1</span>
+          </div>
+          <h3 style="font-size:1.05rem;font-weight:600;color:#e8f0f8;margin-bottom:0.75rem;">Connect ClientLook or RealNex</h3>
+          <p style="font-size:0.95rem;color:#94a8b8;line-height:1.65;">PropReport reads your pipeline data directly from your CRM. No exports. No manual data entry. Setup takes under 5 minutes.</p>
+        </div>
+        <div class="card" style="padding:2rem;">
+          <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1.25rem;">
+            <div class="step-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 5v14M5 12h14"/>
+              </svg>
+            </div>
+            <span class="mono" style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:#94a8b8;">Step 2</span>
+          </div>
+          <h3 style="font-size:1.05rem;font-weight:600;color:#e8f0f8;margin-bottom:0.75rem;">Choose your report template</h3>
+          <p style="font-size:0.95rem;color:#94a8b8;line-height:1.65;">Customize metrics, branding, and layout once. Pick which fields to include, set your logo, and add your firm's colors. PropReport saves the template.</p>
+        </div>
+        <div class="card" style="padding:2rem;">
+          <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1.25rem;">
+            <div class="step-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+            </div>
+            <span class="mono" style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:#94a8b8;">Step 3</span>
+          </div>
+          <h3 style="font-size:1.05rem;font-weight:600;color:#e8f0f8;margin-bottom:0.75rem;">Reports auto-generate every Monday</h3>
+          <p style="font-size:0.95rem;color:#94a8b8;line-height:1.65;">At 7am every Monday, PropReport pulls fresh data, generates a polished PDF, and emails it to your brokers and principals. Always on time. Always accurate.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHO IS THIS FOR -->
+  <section class="border-line" style="padding:5rem 2rem;">
+    <div style="max-width:1120px;margin:0 auto;">
+      <p style="font-size:0.72rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#3b82f6;font-family:'JetBrains Mono',monospace;margin-bottom:1rem;">Built for</p>
+      <h2 style="font-size:clamp(1.5rem,3vw,2.5rem);font-weight:700;letter-spacing:-0.015em;max-width:600px;margin-bottom:4rem;color:#e8f0f8;">
+        CRE brokers on ClientLook and RealNex
+      </h2>
+
+      <div class="grid-2col" style="gap:1.5rem;margin-bottom:2rem;">
+        <div class="card" style="padding:2rem;">
+          <span class="mono" style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:#94a8b8;display:block;margin-bottom:1rem;">The time problem</span>
+          <h3 style="font-size:1.15rem;font-weight:600;color:#e8f0f8;margin-bottom:0.75rem;">Stop wasting Monday mornings on reports</h3>
+          <p style="font-size:0.95rem;color:#94a8b8;line-height:1.65;">PropReport saves 2-3 hours every Monday. That's 100+ hours per year back in your pocket. Use that time to close deals, not rebuild spreadsheets.</p>
+        </div>
+        <div class="card" style="padding:2rem;">
+          <span class="mono" style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:#94a8b8;display:block;margin-bottom:1rem;">The accuracy problem</span>
+          <h3 style="font-size:1.15rem;font-weight:600;color:#e8f0f8;margin-bottom:0.75rem;">Always fresh. Always accurate.</h3>
+          <p style="font-size:0.95rem;color:#94a8b8;line-height:1.65;">PropReport pulls live data from your CRM every Monday. No stale numbers. No copy-paste errors. Brokers get reports they can actually trust.</p>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-wrap:wrap;gap:0.65rem;">
+        <span class="tag">automated-reports</span>
+        <span class="tag">pipeline-dashboard</span>
+        <span class="tag">clientlook-native</span>
+        <span class="tag">realnex-native</span>
+        <span class="tag">live-data</span>
+        <span class="tag">weekly-delivery</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- WAITLIST / CTA SECTION -->
+  <section id="waitlist" class="border-line" style="padding:5rem 2rem;">
+    <div style="max-width:1120px;margin:0 auto;">
+      <div class="grid-2col" style="gap:3rem 5rem;align-items:start;">
+        <div>
+          <p style="font-size:0.72rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#3b82f6;font-family:'JetBrains Mono',monospace;margin-bottom:1rem;">Early access · Limited spots</p>
+          <h2 style="font-size:clamp(1.75rem,3.5vw,2.5rem);font-weight:700;letter-spacing:-0.02em;color:#e8f0f8;margin-bottom:1.25rem;line-height:1.2;">
+            Never spend Monday morning on reports again.
+          </h2>
+          <p style="font-size:0.95rem;color:#94a8b8;line-height:1.7;max-width:440px;margin-bottom:2rem;">
+            We are onboarding a small group of CRE brokerages to test PropReport before full launch. Join the waitlist and you will be the first to know when early access opens.
+          </p>
+
+          <div style="display:flex;flex-direction:column;gap:0.875rem;font-size:0.875rem;">
+            <p style="display:flex;align-items:center;gap:0.625rem;color:rgba(232,240,248,0.75);margin:0;"><span style="width:5px;height:5px;border-radius:50%;background:#3b82f6;flex-shrink:0;"></span>Free during early access</p>
+            <p style="display:flex;align-items:center;gap:0.625rem;color:rgba(232,240,248,0.75);margin:0;"><span style="width:5px;height:5px;border-radius:50%;background:#3b82f6;flex-shrink:0;"></span>Your feedback shapes the product</p>
+            <p style="display:flex;align-items:center;gap:0.625rem;color:rgba(232,240,248,0.75);margin:0;"><span style="width:5px;height:5px;border-radius:50%;background:#3b82f6;flex-shrink:0;"></span>No credit card required</p>
+            <p style="display:flex;align-items:center;gap:0.625rem;color:rgba(232,240,248,0.75);margin:0;"><span style="width:5px;height:5px;border-radius:50%;background:#3b82f6;flex-shrink:0;"></span>First to know when we launch</p>
+          </div>
+        </div>
+
+        <div>
+          <div id="success-message" style="display:none;padding:2.5rem 0;">
+            <div style="width:3rem;height:3rem;background:rgba(59,130,246,0.1);border-radius:0.375rem;display:flex;align-items:center;justify-content:center;margin-bottom:1.5rem;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <h2 style="font-size:1.5rem;font-weight:700;color:#e8f0f8;margin-bottom:0.75rem;">You are on the list!</h2>
+            <p style="font-size:0.95rem;color:#94a8b8;line-height:1.65;margin:0;">We will email you when early access opens. Keep an eye on your inbox.</p>
+          </div>
+
+          <form id="signup-form" onsubmit="handleSubmit(event)" style="display:flex;flex-direction:column;gap:1.25rem;">
+            <div>
+              <label style="display:block;font-size:0.875rem;font-weight:500;color:#e8f0f8;margin-bottom:0.375rem;">Work email <span style="color:#3b82f6;">*</span></label>
+              <input id="email" type="email" required placeholder="you@yourfirm.com" style="width:100%;height:2.75rem;padding:0 1rem;font-size:1rem;box-sizing:border-box;" />
+            </div>
+            <div>
+              <label style="display:block;font-size:0.875rem;font-weight:500;color:#e8f0f8;margin-bottom:0.375rem;">First name</label>
+              <input id="first-name" type="text" placeholder="Alex" style="width:100%;height:2.75rem;padding:0 1rem;font-size:1rem;box-sizing:border-box;" />
+            </div>
+
+            <!-- Progressive qualifying questions -->
+            <div>
+              <label style="display:block;font-size:0.875rem;font-weight:500;color:#e8f0f8;margin-bottom:0.375rem;">How many active properties?</label>
+              <select id="q-team-size" style="width:100%;height:2.75rem;padding:0 0.75rem;font-size:1rem;box-sizing:border-box;cursor:pointer;">
+                <option value="" disabled selected>Select property count</option>
+                <option value="1-10">1-10 properties</option>
+                <option value="11-25">11-25 properties</option>
+                <option value="26-50">26-50 properties</option>
+                <option value="50+">50+ properties</option>
+              </select>
+            </div>
+            <div>
+              <label style="display:block;font-size:0.875rem;font-weight:500;color:#e8f0f8;margin-bottom:0.375rem;">Current CRM?</label>
+              <select id="q-pain" style="width:100%;height:2.75rem;padding:0 0.75rem;font-size:1rem;box-sizing:border-box;cursor:pointer;">
+                <option value="" disabled selected>Select your CRM</option>
+                <option value="clientlook">ClientLook</option>
+                <option value="realnex">RealNex</option>
+                <option value="other">Other</option>
+                <option value="none">Excel/No CRM</option>
+              </select>
+            </div>
+
+            <!-- GDPR consent checkbox -->
+            <div style="display:flex;align-items:flex-start;gap:0.625rem;">
+              <input type="checkbox" id="consent-checkbox" onchange="handleConsentCheckbox(this)" style="width:1.125rem;height:1.125rem;margin-top:0.125rem;accent-color:#3b82f6;cursor:pointer;flex-shrink:0;" />
+              <label for="consent-checkbox" style="font-size:0.8125rem;color:#94a8b8;line-height:1.5;cursor:pointer;">I agree to analytics cookies and the <a href="/privacy.html" style="color:#3b82f6;text-decoration:underline;">Privacy Policy</a></label>
+            </div>
+
+            <button type="submit" id="submit-btn" class="btn-primary" disabled style="width:100%;height:3rem;font-size:1rem;opacity:0.5;">
+              Get Early Access
+            </button>
+            <p style="font-size:0.75rem;color:rgba(180,210,230,0.65);text-align:center;margin:0;">No spam. We will only contact you about PropReport.</p>
+
+            <!-- Inline "Book a call with the founder" -->
+            <div id="inline-booking" onclick="openCalendly(event)" style="display:flex;align-items:center;justify-content:center;gap:0.5rem;margin-top:1rem;padding:0.75rem 1rem;border:1px solid #0f1f2e;border-radius:0.5rem;background:rgba(11,23,35,0.3);cursor:pointer;opacity:0.4;transition:opacity 0.2s,background 0.15s;" onmouseover="this.style.background='rgba(11,23,35,0.5)'" onmouseout="this.style.background='rgba(11,23,35,0.3)'">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <span style="font-size:0.875rem;font-weight:600;color:#3b82f6;">Book a call with the founder</span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOUNDER + INCUBATOR BADGE -->
+  <section style="padding:2.5rem 2rem 0;">
+    <div style="max-width:1120px;margin:0 auto;text-align:center;">
+      <div style="display:inline-flex;align-items:center;gap:1rem;padding:1rem 1.5rem;border:1px solid rgba(255,255,255,0.06);border-radius:0.5rem;background:rgba(255,255,255,0.02);">
+        <img src="https://leanaistudio.com/founder.jpeg" alt="Dario Verghi" style="width:48px;height:48px;border-radius:50%;object-fit:cover;flex-shrink:0;border:1px solid rgba(59,130,246,0.2);" />
+        <div style="text-align:left;">
+          <p style="margin:0;font-size:0.875rem;color:#e8f0f8;font-weight:600;">A project by <a href="https://leanaistudio.com" target="_blank" rel="noopener" style="color:#3b82f6;text-decoration:none;">LeanAI Studio</a>, built by <a href="https://www.linkedin.com/in/darioverghi/" target="_blank" rel="noopener" style="color:#3b82f6;text-decoration:none;">Dario Verghi</a></p>
+          <p style="margin:0.25rem 0 0;font-size:0.8125rem;color:#94a8b8;line-height:1.5;">Building focused tools for underserved B2B niches. We ship this if 50 people sign up.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="border-line" style="padding:2.5rem 2rem;">
+    <div style="max-width:1120px;margin:0 auto;">
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:1.25rem;margin-bottom:1.25rem;">
+        <div style="display:flex;align-items:center;gap:0.5rem;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+          </svg>
+          <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.875rem;color:#e8f0f8;">PropReport</span>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:1.5rem;font-size:0.75rem;color:rgba(180,210,230,0.7);">
+          <a href="mailto:info@leanaistudio.com" style="color:inherit;text-decoration:none;" onmouseover="this.style.color='#94a8b8'" onmouseout="this.style.color='rgba(180,210,230,0.7)'">info@leanaistudio.com</a>
+          <a href="/privacy.html" style="color:inherit;text-decoration:none;" onmouseover="this.style.color='#94a8b8'" onmouseout="this.style.color='rgba(180,210,230,0.7)'">Privacy Policy</a>
+          <a href="/terms.html" style="color:inherit;text-decoration:none;" onmouseover="this.style.color='#94a8b8'" onmouseout="this.style.color='rgba(180,210,230,0.7)'">Terms of Service</a>
+        </div>
+      </div>
+      <div style="border-top:1px solid #0f1f2e;padding-top:1rem;font-size:0.7rem;color:rgba(180,210,230,0.5);line-height:1.8;">
+        <p style="margin:0;">© 2026 LeanAI Studio srl — P.IVA/CF: 14561020968</p>
+        <p style="margin:0;">PropReport is a product of LeanAI Studio srl</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT -->
+  <script>
+    function getUTMParams() {
+      var params = new URLSearchParams(window.location.search);
+      var utm = {};
+      ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'].forEach(function(k) {
+        var v = params.get(k);
+        if (v) utm[k] = v;
+      });
+      return utm;
+    }
+
+    async function handleSubmit(e) {
+      e.preventDefault();
+      var btn = document.getElementById('submit-btn');
+      btn.textContent = 'Joining...';
+      btn.disabled = true;
+
+      var utm = getUTMParams();
+      var email = document.getElementById('email').value;
+      var firstName = document.getElementById('first-name').value;
+      var teamSize = document.getElementById('q-team-size').value || '';
+      var pain = document.getElementById('q-pain').value || '';
+
+      var payload = {
+        secret: 'pr_6n9m3k8p1w7t',
+        product: 'PropReport',
+        email: email,
+        first_name: firstName,
+        source: 'PropReport',
+        traffic_source: utm.utm_source || 'direct',
+        team_size: teamSize,
+        pain: pain,
+        submitted_at: new Date().toISOString(),
+        page_url: window.location.href
+      };
+      Object.assign(payload, utm);
+
+      try {
+        await fetch('/api/slack-notify', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            text: '*[PropReport]* New waitlist signup!\n*Email:* ' + email + '\n*Name:* ' + (firstName || 'n/a') + '\n*Product:* PropReport\n*Properties:* ' + (teamSize || 'n/a') + '\n*CRM:* ' + (pain || 'n/a') + '\n*Traffic Source:* ' + (utm.utm_source || 'direct')
+          })
+        });
+      } catch(ex) {}
+
+      try {
+        await fetch('/api/sheet-notify', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+      } catch(ex) {}
+
+      try { if (window.va) window.va('event', { name: 'waitlist-signup', data: { product: 'PropReport', source: 'PropReport', traffic_source: utm.utm_source || 'direct' } }); } catch(ex) {}
+
+      try {
+        await fetch('/api/resend-notify', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: email, first_name: firstName, product: 'PropReport' })
+        });
+      } catch(ex) {}
+
+      try { if (typeof gtag === 'function') gtag('event', 'conversion', { send_to: 'AW-18071371531/z6DhCLq9-JccEIv-jKlD', value: 1.0, currency: 'USD' }); } catch(ex) {}
+
+      document.getElementById('signup-form').style.display = 'none';
+      document.getElementById('success-message').style.display = 'block';
+    }
+
+    var CALENDLY_URL = 'https://calendly.com/leanaistudio/30min';
+    function openCalendly(e) {
+      e.preventDefault();
+      var cb = document.getElementById('consent-checkbox');
+      if (!cb || !cb.checked) {
+        if (cb) {
+          cb.style.outline = '2px solid #f87171';
+          cb.style.outlineOffset = '2px';
+          setTimeout(function(){ cb.style.outline = 'none'; }, 1500);
+          cb.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        return false;
+      }
+      if (window.Calendly) {
+        Calendly.initPopupWidget({ url: CALENDLY_URL + '?utm_source=PropReport&utm_medium=lp&utm_campaign=founder-call' });
+      }
+      return false;
+    }
+  </script>
+
+  <!-- FLOATING "BOOK A CALL" BADGE -->
+  <a id="floating-booking" href="#" onclick="return openCalendly(event)" style="position:fixed;bottom:24px;right:24px;z-index:9999;display:flex;align-items:center;gap:8px;padding:12px 20px;background:#070d14;color:#e8f0f8;border:1px solid #0f1f2e;border-radius:50px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;box-shadow:0 4px 20px rgba(0,0,0,0.3);transition:all 0.2s ease;text-decoration:none;opacity:0.4;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 28px rgba(0,0,0,0.4)';this.style.background='#0b1723'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 20px rgba(0,0,0,0.3)';this.style.background='#070d14'">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;flex-shrink:0;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+    Book a Call with the Founder
+  </a>
+
+  <!-- Cookie Consent Bar -->
+  <div id="consent-bar" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:10000;background:#0f172a;border-top:1px solid #1e293b;padding:0.75rem 2rem;font-family:'DM Sans',system-ui,sans-serif;">
+    <div style="max-width:1120px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;">
+      <p style="margin:0;font-size:0.8125rem;color:#94a3b8;line-height:1.4;">We use cookies to measure ad performance. <a href="/privacy.html" style="color:#3b82f6;text-decoration:underline;text-underline-offset:2px;">Privacy Policy</a></p>
+      <div style="display:flex;gap:0.75rem;align-items:center;">
+        <button onclick="grantConsent()" style="background:#3b82f6;color:#070d14;border:none;border-radius:0.25rem;padding:0.4rem 1.25rem;font-size:0.8125rem;font-weight:600;cursor:pointer;font-family:'Space Grotesk',sans-serif;white-space:nowrap;">Accept</button>
+        <button onclick="document.getElementById('consent-bar').style.display='none'" style="background:transparent;color:#64748b;border:none;padding:0.4rem 0.75rem;font-size:0.75rem;cursor:pointer;white-space:nowrap;">Dismiss</button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
