@@ -123,13 +123,27 @@
 
     <div style="max-width:780px;">
       <h1 style="font-size:clamp(2.25rem,5vw,3.75rem);line-height:1.08;font-weight:700;letter-spacing:-0.025em;margin-bottom:1.5rem;color:#e8f0f8;">
-        Stop rebuilding the same pipeline report every Monday morning. <span style="color:#3b82f6;">The Monday report that writes itself.</span>
+        Every Monday you rebuild the same pipeline report from scratch. <span style="color:#3b82f6;">PropReport pulls your CRM data and delivers it polished.</span>
       </h1>
-      <p style="font-size:clamp(1.05rem,2vw,1.2rem);color:#94a8b8;line-height:1.7;max-width:600px;margin-bottom:2.5rem;">
-        Built for CRE brokers on ClientLook and RealNex who spend hours each week exporting data and formatting Excel reports. PropReport pulls your pipeline data and delivers a polished weekly report to your inbox — automatically.
-      </p>
+
+      <!-- dir-122: Scannable bullets replacing paragraph subheadline -->
+      <ul style="list-style:none;padding:0;margin:0 0 2.5rem;max-width:600px;display:flex;flex-direction:column;gap:0.75rem;">
+        <li style="display:flex;align-items:flex-start;gap:0.75rem;font-size:clamp(1.05rem,2vw,1.2rem);color:#94a8b8;line-height:1.6;">
+          <span style="margin-top:0.6rem;width:6px;height:6px;border-radius:50%;background:#3b82f6;flex-shrink:0;"></span>
+          Pull pipeline data from ClientLook or RealNex automatically
+        </li>
+        <li style="display:flex;align-items:flex-start;gap:0.75rem;font-size:clamp(1.05rem,2vw,1.2rem);color:#94a8b8;line-height:1.6;">
+          <span style="margin-top:0.6rem;width:6px;height:6px;border-radius:50%;background:#3b82f6;flex-shrink:0;"></span>
+          Weekly reports formatted and branded without touching Excel
+        </li>
+        <li style="display:flex;align-items:flex-start;gap:0.75rem;font-size:clamp(1.05rem,2vw,1.2rem);color:#94a8b8;line-height:1.6;">
+          <span style="margin-top:0.6rem;width:6px;height:6px;border-radius:50%;background:#3b82f6;flex-shrink:0;"></span>
+          Delivered to your inbox every Monday morning, ready to forward
+        </li>
+      </ul>
+
       <div style="display:flex;flex-wrap:wrap;gap:1rem;align-items:center;">
-        <a href="#waitlist" class="btn-primary">Get Early Access</a>
+        <a href="#waitlist" class="btn-primary">Get Early Access to Automated CRE Reporting</a>
         <a href="#how-it-works" class="btn-ghost">See how it works ↓</a>
       </div>
     </div>
@@ -147,13 +161,26 @@
     </div>
   </section>
 
-  <!-- DASHBOARD MOCKUP -->
+  
+  <!-- dir-122 improvement #3: Founder Credibility -->
+  <section style="max-width:1120px;margin:0 auto;padding:0 2rem 3rem;">
+    <div style="display:flex;align-items:center;gap:1.25rem;padding:1.25rem 1.5rem;border:1px solid #0f1f2e;border-radius:0.5rem;background:rgba(11,23,35,0.5);max-width:600px;">
+      <img src="https://leanaistudio.com/founder.jpeg" alt="Dario Verghi" style="width:56px;height:56px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid rgba(59,130,246,0.3);" />
+      <div>
+        <p style="margin:0;font-size:1rem;font-weight:700;color:#e8f0f8;font-family:'Space Grotesk',sans-serif;">Built by Dario Verghi</p>
+        <p style="margin:0.2rem 0 0;font-size:0.875rem;color:#3b82f6;font-weight:600;">Ex-MongoDB Global VP</p>
+        <p style="margin:0.35rem 0 0;font-size:0.85rem;color:#94a8b8;line-height:1.5;">I talked to CRE brokers spending 2 hours every Monday reformatting the same pipeline data. PropReport eliminates that entirely.</p>
+      </div>
+    </div>
+  </section>
+
+<!-- DASHBOARD MOCKUP -->
   <section class="border-line" style="padding:3rem 2rem 5rem;">
     <div style="max-width:1120px;margin:0 auto;">
       <p style="font-size:0.72rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#3b82f6;font-family:'JetBrains Mono',monospace;margin-bottom:1.5rem;text-align:center;">Early preview</p>
 
       <!-- Browser chrome frame -->
-      <div style="max-width:900px;margin:0 auto;border:1px solid #0f1f2e;border-radius:0.75rem;overflow:hidden;background:#0b1723;">
+      <div style="max-width:900px;margin:0 auto;border:1px solid #0f1f2e;border-radius:0.75rem;overflow:hidden;background:#0b1723;position:relative;">
         <!-- Title bar -->
         <div style="display:flex;align-items:center;gap:0.5rem;padding:0.75rem 1rem;background:#0a1420;border-bottom:1px solid #0f1f2e;">
           <div style="display:flex;gap:0.375rem;">
@@ -235,7 +262,12 @@
             </div>
           </div>
         </div>
-      </div>
+      
+        <!-- dir-122 improvement #4: Callout overlays (desktop only) -->
+        <div class="hide-mobile" style="position:absolute;top:160px;right:40px;background:#3b82f6;color:#070d14;font-size:0.65rem;font-weight:700;padding:0.3rem 0.6rem;border-radius:0.25rem;font-family:'Space Grotesk',sans-serif;white-space:nowrap;box-shadow:0 2px 8px rgba(59,130,246,0.3);">Pipeline pulled from CRM</div>
+        <div class="hide-mobile" style="position:absolute;top:240px;left:220px;background:#3b82f6;color:#070d14;font-size:0.65rem;font-weight:700;padding:0.3rem 0.6rem;border-radius:0.25rem;font-family:'Space Grotesk',sans-serif;white-space:nowrap;box-shadow:0 2px 8px rgba(59,130,246,0.3);">Auto-formatted weekly report</div>
+        <div class="hide-mobile" style="position:absolute;bottom:80px;right:60px;background:#3b82f6;color:#070d14;font-size:0.65rem;font-weight:700;padding:0.3rem 0.6rem;border-radius:0.25rem;font-family:'Space Grotesk',sans-serif;white-space:nowrap;box-shadow:0 2px 8px rgba(59,130,246,0.3);">Ready to send to principals</div>
+</div>
       <p style="text-align:center;font-size:0.8rem;color:#64748b;margin-top:1rem;font-style:italic;">Early preview of the PropReport dashboard</p>
     </div>
   </section>
@@ -244,9 +276,14 @@
   <section class="border-line" style="padding:5rem 2rem;">
     <div style="max-width:1120px;margin:0 auto;">
       <p style="font-size:0.72rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#3b82f6;font-family:'JetBrains Mono',monospace;margin-bottom:1rem;">The problem</p>
-      <h2 style="font-size:clamp(1.5rem,3vw,2.5rem);font-weight:700;letter-spacing:-0.015em;max-width:660px;margin-bottom:4rem;color:#e8f0f8;">
+      <h2 style="font-size:clamp(1.5rem,3vw,2.5rem);font-weight:700;letter-spacing:-0.015em;max-width:660px;margin-bottom:1.25rem;color:#e8f0f8;">
         Manual report generation is a time sink — every single Monday.
       </h2>
+
+      <!-- dir-122 improvement #5: Aggressive pain subparagraph -->
+      <p style="font-size:1.05rem;color:#94a8b8;line-height:1.7;max-width:620px;margin-bottom:4rem;">
+        Your Monday morning starts the same way every week: export from ClientLook, paste into Excel, format the table, add commentary, save as PDF, email to the principals. Two hours gone. The report looks the same as last week. The only thing that changed was the numbers.
+      </p>
 
       <div class="grid-auto" style="gap:3rem;">
         <div>
@@ -296,7 +333,7 @@
             </div>
             <span class="mono" style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:#94a8b8;">Step 1</span>
           </div>
-          <h3 style="font-size:1.05rem;font-weight:600;color:#e8f0f8;margin-bottom:0.75rem;">Connect ClientLook or RealNex</h3>
+          <h3 style="font-size:1.05rem;font-weight:600;color:#e8f0f8;margin-bottom:0.75rem;">Connect ClientLook or RealNex and choose your report template</h3>
           <p style="font-size:0.95rem;color:#94a8b8;line-height:1.65;">PropReport reads your pipeline data directly from your CRM. No exports. No manual data entry. Setup takes under 5 minutes.</p>
         </div>
         <div class="card" style="padding:2rem;">
@@ -308,7 +345,7 @@
             </div>
             <span class="mono" style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:#94a8b8;">Step 2</span>
           </div>
-          <h3 style="font-size:1.05rem;font-weight:600;color:#e8f0f8;margin-bottom:0.75rem;">Choose your report template</h3>
+          <h3 style="font-size:1.05rem;font-weight:600;color:#e8f0f8;margin-bottom:0.75rem;">Pipeline data pulls and formats automatically every week</h3>
           <p style="font-size:0.95rem;color:#94a8b8;line-height:1.65;">Customize metrics, branding, and layout once. Pick which fields to include, set your logo, and add your firm's colors. PropReport saves the template.</p>
         </div>
         <div class="card" style="padding:2rem;">
@@ -320,7 +357,7 @@
             </div>
             <span class="mono" style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:#94a8b8;">Step 3</span>
           </div>
-          <h3 style="font-size:1.05rem;font-weight:600;color:#e8f0f8;margin-bottom:0.75rem;">Reports auto-generate every Monday</h3>
+          <h3 style="font-size:1.05rem;font-weight:600;color:#e8f0f8;margin-bottom:0.75rem;">Polished PDF delivers to your inbox Monday morning, ready to forward</h3>
           <p style="font-size:0.95rem;color:#94a8b8;line-height:1.65;">At 7am every Monday, PropReport pulls fresh data, generates a polished PDF, and emails it to your brokers and principals. Always on time. Always accurate.</p>
         </div>
       </div>
@@ -364,20 +401,22 @@
     <div style="max-width:1120px;margin:0 auto;">
       <div class="grid-2col" style="gap:3rem 5rem;align-items:start;">
         <div>
-          <p style="font-size:0.72rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#3b82f6;font-family:'JetBrains Mono',monospace;margin-bottom:1rem;">Early access · Limited spots</p>
+          <p style="font-size:0.72rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#3b82f6;font-family:'JetBrains Mono',monospace;margin-bottom:1rem;">Early access · Limited founding member spots</p>
           <h2 style="font-size:clamp(1.75rem,3.5vw,2.5rem);font-weight:700;letter-spacing:-0.02em;color:#e8f0f8;margin-bottom:1.25rem;line-height:1.2;">
-            Never spend Monday morning on reports again.
+            Reclaim your Monday morning. The report writes itself.
           </h2>
           <p style="font-size:0.95rem;color:#94a8b8;line-height:1.7;max-width:440px;margin-bottom:2rem;">
-            We are onboarding a small group of CRE brokerages to test PropReport before full launch. Join the waitlist and you will be the first to know when early access opens.
+            We are onboarding a small group of commercial real estate brokers on ClientLook and RealNex to test PropReport before full launch.
           </p>
 
-          <div style="display:flex;flex-direction:column;gap:0.875rem;font-size:0.875rem;">
-            <p style="display:flex;align-items:center;gap:0.625rem;color:rgba(232,240,248,0.75);margin:0;"><span style="width:5px;height:5px;border-radius:50%;background:#3b82f6;flex-shrink:0;"></span>Free during early access</p>
-            <p style="display:flex;align-items:center;gap:0.625rem;color:rgba(232,240,248,0.75);margin:0;"><span style="width:5px;height:5px;border-radius:50%;background:#3b82f6;flex-shrink:0;"></span>Your feedback shapes the product</p>
-            <p style="display:flex;align-items:center;gap:0.625rem;color:rgba(232,240,248,0.75);margin:0;"><span style="width:5px;height:5px;border-radius:50%;background:#3b82f6;flex-shrink:0;"></span>No credit card required</p>
-            <p style="display:flex;align-items:center;gap:0.625rem;color:rgba(232,240,248,0.75);margin:0;"><span style="width:5px;height:5px;border-radius:50%;background:#3b82f6;flex-shrink:0;"></span>First to know when we launch</p>
+          <!-- dir-122: "What you'll get" value prop block -->
+          <p style="font-size:0.875rem;font-weight:600;color:#e8f0f8;margin-bottom:0.75rem;">What you'll get:</p>
+          <div style="display:flex;flex-direction:column;gap:0.75rem;font-size:0.875rem;margin-bottom:1.5rem;">
+            <p style="display:flex;align-items:center;gap:0.625rem;color:rgba(232,240,248,0.75);margin:0;"><span style="width:5px;height:5px;border-radius:50%;background:#3b82f6;flex-shrink:0;"></span>Automated weekly pipeline reports from your CRE CRM</p>
+            <p style="display:flex;align-items:center;gap:0.625rem;color:rgba(232,240,248,0.75);margin:0;"><span style="width:5px;height:5px;border-radius:50%;background:#3b82f6;flex-shrink:0;"></span>Early access to the broker reporting platform</p>
+            <p style="display:flex;align-items:center;gap:0.625rem;color:rgba(232,240,248,0.75);margin:0;"><span style="width:5px;height:5px;border-radius:50%;background:#3b82f6;flex-shrink:0;"></span>Priority onboarding and direct access to the founder</p>
           </div>
+          <p style="font-size:0.8rem;color:#3b82f6;font-weight:600;">Founding users get lifetime priority access.</p>
         </div>
 
         <div>
@@ -421,7 +460,7 @@
               </select>
             </div>
             <button type="submit" id="submit-btn" class="btn-primary" style="width:100%;height:3rem;font-size:1rem;">
-              Get Early Access
+              Get Early Access to Automated CRE Reporting
             </button>
             <p style="font-size:0.75rem;color:rgba(180,210,230,0.65);text-align:center;margin:0;">By signing up you accept our <a href="/privacy.html" style="color:#38bdf8;text-decoration:underline;">Privacy Policy</a> and analytics cookies. No spam — we will only contact you about PropReport.</p>
 
