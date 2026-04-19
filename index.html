@@ -101,6 +101,25 @@
     .step-icon { width: 2.25rem; height: 2.25rem; background: rgba(59,130,246,0.1); border-radius: 0.375rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 
     @media (max-width: 768px) { .hide-mobile { display: none !important; } }
+  
+    /* task-558: Mobile readability overhaul */
+    @media (max-width: 768px) {
+      h1 { font-size: 1.625rem !important; line-height: 1.15 !important; }
+      section { padding-top: 2.5rem !important; padding-bottom: 2.5rem !important; }
+      .hero-section h1 { font-size: 1.625rem !important; }
+      [style*="font-size:clamp(2.25rem"] { font-size: 1.625rem !important; line-height: 1.15 !important; }
+      [style*="font-size:clamp(1.05rem"] { font-size: 0.95rem !important; }
+      [style*="padding:4rem 2rem"] { padding: 2rem 1.25rem !important; }
+      [style*="padding:5rem 2rem"] { padding: 2.5rem 1.25rem !important; }
+      [style*="padding:6rem 2rem"] { padding: 3rem 1.25rem !important; }
+      .grid-auto { grid-template-columns: 1fr !important; gap: 1rem !important; }
+      .grid-2col { grid-template-columns: 1fr !important; gap: 1rem !important; }
+      .founding-box { padding: 1.5rem !important; }
+      .btn-primary { width: 100%; justify-content: center; font-size: 0.95rem !important; height: 3rem !important; }
+      input, select, textarea { width: 100% !important; min-height: 48px !important; font-size: 16px !important; }
+      button[type="submit"], .btn-primary { min-height: 48px !important; }
+    }
+
   </style>
 </head>
 <body>
@@ -128,7 +147,7 @@
 
     <div style="max-width:780px;">
       <h1 style="font-size:clamp(2.25rem,5vw,3.75rem);line-height:1.08;font-weight:700;letter-spacing:-0.025em;margin-bottom:1.5rem;color:#e8f0f8;">
-        Your last property report took 4 hours. Your competitor's took 20 minutes, and they got the listing. <span style="color:#3b82f6;">PropReport generates inspection-ready reports while you're still on site.</span>
+        CRE reporting that generates inspection-ready reports <span style="color:#3b82f6;">while you're still on site.</span>
       </h1>
 
       <!-- dir-122: Scannable bullets replacing paragraph subheadline -->
@@ -172,6 +191,13 @@
       <div style="margin-top:0.75rem;color:#3b82f6;">→ next: Monday 7am</div>
     </div>
   </section>
+
+  <!-- THE PROBLEM (pain narrative moved from hero — task-558) -->
+  <section id="the-problem" style="max-width:1120px;margin:0 auto;padding:3rem 2rem 0;">
+    <p style="font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#3b82f6;margin-bottom:1rem;font-family:'JetBrains Mono',monospace;">The Problem</p>
+    <p style="font-size:clamp(1.1rem,2.5vw,1.35rem);line-height:1.65;color:#94a8b8;max-width:680px;">Your last property report took 4 hours. Your competitor's took 20 minutes, and they got the listing. In CRE, the fastest report wins the deal.</p>
+  </section>
+
 
   
   <!-- dir-122 improvement #3: Founder Credibility -->
