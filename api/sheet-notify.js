@@ -1,58 +1,33 @@
-const { google } = require('googleapis');
-
-module.exports = async (req, res) => {
+module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
+    return res.status(405).json({ error: 'Method Not Allowed' });
   }
 
-  const payload = req.body;
-
-  if (!payload.email || payload.product !== 'PropReport') {
-    return res.status(400).json({ error: 'Missing required fields' });
+  const webhookUrl = process.env.GOOGLE_SHEET_WEBHOOK_URL;
+  if (!webhookUrl) {
+    console.error('[sheet-notify] GOOGLE_SHEET_WEBHOOK_URL env var not set');
+    return res.status(200).json({ ok: false, reason: 'not_configured' });
   }
 
-  const spreadsheetId = process.env.GOOGLE_SHEETS_ID;
-  const privateKey = process.env.GOOGLE_PRIVATE_KEY;
-  const clientEmail = process.env.GOOGLE_CLIENT_EMAIL;
-
-  if (!spreadsheetId || !privateKey || !clientEmail) {
-    console.error('Missing Google Sheets configuration');
-    return res.status(500).json({ error: 'Sheet service not configured' });
-  }
+  const sheetSecret = process.env.SHEET_SECRET;
+  const payload = Object.assign({}, req.body, sheetSecret ? { secret: sheetSecret } : {});
 
   try {
-    const auth = new google.auth.JWT({
-      email: clientEmail,
-      key: privateKey.replace(/\\n/g, '\n'),
-      scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+    const r = await fetch(webhookUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
     });
-
-    const sheets = google.sheets({ version: 'v4', auth });
-
-    const values = [
-      [
-        payload.product || '',
-        payload.email || '',
-        payload.first_name || '',
-        payload.source || '',
-        payload.traffic_source || '',
-        payload.team_size || '',
-        payload.pain || '',
-        payload.submitted_at || new Date().toISOString(),
-        payload.page_url || '',
-      ],
-    ];
-
-    await sheets.spreadsheets.values.append({
-      spreadsheetId,
-      range: 'Sheet1!A:I',
-      valueInputOption: 'USER_ENTERED',
-      resource: { values },
-    });
-
-    return res.status(200).json({ success: true });
-  } catch (error) {
-    console.error('Sheet notify error:', error);
-    return res.status(500).json({ error: error.message });
+    const text = await r.text();
+    let json;
+    try { json = JSON.parse(text); } catch (e) { json = { raw: text }; }
+    if (json && json.ok === false) {
+      console.error('[sheet-notify] GAS error:', text);
+      return res.status(200).json({ ok: false, reason: text });
+    }
+    return res.status(200).json({ ok: true });
+  } catch (err) {
+    console.error('[sheet-notify] fetch error:', err);
+    return res.status(200).json({ ok: false, reason: 'fetch_failed' });
   }
 };
