@@ -228,8 +228,6 @@
     @media (max-width: 900px) { .hero-grid { grid-template-columns: 1fr !important; } }
 
     /* ── Phone mockup ── */
-    .phone-mockup { width: 260px; border-radius: 32px; border: 3px solid rgba(255,255,255,0.08); background: #111113; box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04); overflow: hidden; }
-    .phone-mockup-inner { padding: 0.6rem 1.25rem 0.35rem; display: flex; justify-content: space-between; align-items: center; }
 
     /* ── HIW flow diagram — glass container ── */
   </style>
@@ -301,12 +299,12 @@
           </div>
         </div>
 
-        <!-- Right: Phone mockup -->
+        <!-- Right: Phone mockup showing inspection flow -->
         <div class="reveal-scale reveal-delay-2 hide-mobile" style="display:flex;justify-content:center;">
           <div style="position:relative;">
-            <div class="phone-mockup">
+            <div style="width:260px;border-radius:32px;border:3px solid rgba(255,255,255,0.08);background:#111113;box-shadow:0 20px 60px rgba(0,0,0,0.5),0 0 0 1px rgba(255,255,255,0.04);overflow:hidden;">
               <!-- Status bar -->
-              <div class="phone-mockup-inner">
+              <div style="padding:0.6rem 1.25rem 0.35rem;display:flex;justify-content:space-between;align-items:center;">
                 <span style="font-size:0.55rem;font-weight:600;color:var(--text-primary);">9:41</span>
                 <div style="display:flex;gap:0.3rem;align-items:center;">
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--text-primary)"><path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3a4.24 4.24 0 0 0-6 0zm-4-4l2 2a7.07 7.07 0 0 1 10 0l2-2C15.68 9.68 8.32 9.68 5 13z"/></svg>
@@ -314,36 +312,68 @@
                 </div>
               </div>
               <!-- App header -->
-              <div style="padding:0.5rem 1rem 0.75rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);">
+              <div style="padding:0.5rem 1rem 0.75rem;display:flex;align-items:center;justify-content:space-between;">
                 <div style="display:flex;align-items:center;gap:0.4rem;">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M3 7v6h6M3 7l3-3m0 0l3 3M21 17v-6h-6m6 0l-3 3m0 0l-3-3"/></svg>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
                   <span style="font-weight:800;font-size:0.75rem;color:var(--text-primary);">PropReport</span>
                 </div>
                 <div style="width:24px;height:24px;border-radius:50%;background:var(--accent-glow);display:flex;align-items:center;justify-content:center;">
                   <span style="font-size:0.45rem;font-weight:700;color:var(--accent);">BR</span>
                 </div>
               </div>
-              <!-- Report display -->
-              <div style="padding:0.85rem;">
-                <div style="border:1px solid var(--border);border-radius:10px;padding:0.85rem;background:var(--surface);margin-bottom:0.75rem;">
-                  <p style="font-size:0.6rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.4rem;">Weekly Report</p>
-                  <p style="font-size:0.75rem;font-weight:700;color:var(--text-primary);margin-bottom:0.3rem;">Property: 123 Main St</p>
-                  <div style="font-size:0.65rem;color:var(--text-secondary);display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;">
-                    <div><span style="color:var(--text-muted);">Value:</span> $4.2M</div>
-                    <div><span style="color:var(--text-muted);">Status:</span> <span style="color:var(--green);">Ready</span></div>
-                    <div><span style="color:var(--text-muted);">Comps:</span> 3</div>
-                    <div><span style="color:var(--text-muted);">Condition:</span> Good</div>
+              <!-- Photo capture area -->
+              <div style="padding:0 0.85rem;">
+                <div style="border:2px dashed rgba(16,185,129,0.25);border-radius:14px;padding:1.5rem 1rem;text-align:center;background:rgba(16,185,129,0.03);margin-bottom:0.75rem;">
+                  <div style="width:2.5rem;height:2.5rem;border-radius:12px;background:var(--accent-glow);display:flex;align-items:center;justify-content:center;margin:0 auto 0.75rem;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.75" stroke-linecap="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
                   </div>
+                  <p style="margin:0;font-size:0.7rem;font-weight:600;color:var(--text-primary);">Take inspection photos</p>
+                  <p style="margin:0.2rem 0 0;font-size:0.55rem;color:var(--text-muted);">Camera, gallery, or PDF upload</p>
                 </div>
+              </div>
+              <!-- Recent reports -->
+              <div style="padding:0 0.85rem 0.5rem;">
+                <p style="font-size:0.5rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem;">Generated today</p>
                 <div style="display:flex;flex-direction:column;gap:0.4rem;">
-                  <p style="font-size:0.5rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;">Generated Today</p>
-                  <div style="display:flex;align-items:center;gap:0.5rem;padding:0.55rem 0.65rem;background:rgba(16, 185, 129, 0.1);border:1px solid rgba(16, 185, 129, 0.2);border-radius:8px;">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
-                    <span style="font-size:0.6rem;color:var(--text-primary);">Generated at 10:12 AM on-site</span>
+                  <div style="display:flex;align-items:center;gap:0.5rem;padding:0.55rem 0.65rem;background:var(--surface);border:1px solid var(--border);border-radius:10px;">
+                    <div style="width:26px;height:26px;border-radius:6px;background:rgba(34,197,94,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    </div>
+                    <div style="flex:1;min-width:0;">
+                      <p style="margin:0;font-size:0.6rem;font-weight:600;color:var(--text-primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">123 Main St — Office Complex</p>
+                      <p style="margin:0;font-size:0.5rem;color:#22c55e;">Delivered · $4.2M · 3 comps</p>
+                    </div>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:0.5rem;padding:0.55rem 0.65rem;background:var(--surface);border:1px solid var(--border);border-radius:10px;">
+                    <div style="width:26px;height:26px;border-radius:6px;background:rgba(34,197,94,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    </div>
+                    <div style="flex:1;min-width:0;">
+                      <p style="margin:0;font-size:0.6rem;font-weight:600;color:var(--text-primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">456 Oak Ave — Retail Strip</p>
+                      <p style="margin:0;font-size:0.5rem;color:#22c55e;">Delivered · $1.8M · 4 comps</p>
+                    </div>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:0.5rem;padding:0.55rem 0.65rem;background:var(--surface);border:1px solid rgba(16,185,129,0.15);border-radius:10px;">
+                    <div style="width:26px;height:26px;border-radius:6px;background:rgba(16,185,129,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                    </div>
+                    <div style="flex:1;min-width:0;">
+                      <p style="margin:0;font-size:0.6rem;font-weight:600;color:var(--text-primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">789 Industrial Pkwy — Warehouse</p>
+                      <p style="margin:0;font-size:0.5rem;color:var(--accent);">Processing · 12 photos uploaded</p>
+                    </div>
                   </div>
                 </div>
               </div>
+              <!-- Bottom nav -->
+              <div style="padding:0.6rem 1rem;border-top:1px solid var(--border);display:flex;justify-content:space-around;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="1.75"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.75"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="1.75"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="1.75"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+              </div>
             </div>
+            <!-- Glow behind phone -->
+            <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:300px;height:400px;background:radial-gradient(ellipse,rgba(16,185,129,0.08),transparent 70%);pointer-events:none;z-index:-1;"></div>
           </div>
         </div>
       </div>
@@ -351,47 +381,34 @@
   </section>
 
   <!-- ═══════════════════════════════════════════
-       STATS WITH ICONS (Pattern 8)
+       KEY METRICS (Pattern 8 — glass cards + icons)
        ═══════════════════════════════════════════ -->
-  <section class="accent-section">
+  <section style="padding:2rem 0 4rem;">
     <div class="container">
-      <div class="reveal" style="text-align:center;margin-bottom:3rem;">
-        <p class="section-label">The impact</p>
-        <h2 class="section-title" style="margin:0 auto 1.5rem;">Already trusted by commercial brokers</h2>
-      </div>
-
-      <div class="grid-3" style="gap:2rem;">
-        <div class="reveal reveal-delay-1" style="text-align:center;">
+      <div class="grid-3" style="gap:1.25rem;">
+        <!-- Stat 1: 400+ reports -->
+        <div class="glass-card reveal reveal-delay-1" style="text-align:center;padding:2rem 1.5rem;">
           <div style="width:3.25rem;height:3.25rem;border-radius:14px;background:var(--accent-glow);display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
           </div>
-          <div class="stat-number" style="margin-bottom:0.5rem;">
-            <span class="counter" data-target="400">0</span>+
-          </div>
-          <p style="color:var(--text-secondary);margin:0;">Reports generated</p>
-          <p style="font-size:0.85rem;color:var(--text-muted);margin:0.5rem 0 0;">live in the field</p>
+          <div class="stat-number" style="margin-bottom:0.4rem;"><span class="counter" data-target="400">0</span>+</div>
+          <p style="font-size:0.9rem;color:var(--text-muted);margin:0;">Reports generated in the field</p>
         </div>
-
-        <div class="reveal reveal-delay-2" style="text-align:center;">
+        <!-- Stat 2: 94% open rate -->
+        <div class="glass-card reveal reveal-delay-2" style="text-align:center;padding:2rem 1.5rem;">
           <div style="width:3.25rem;height:3.25rem;border-radius:14px;background:var(--accent-glow);display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
           </div>
-          <div class="stat-number" style="margin-bottom:0.5rem;">
-            <span class="counter" data-target="94">0</span>%
-          </div>
-          <p style="color:var(--text-secondary);margin:0;">Open rate</p>
-          <p style="font-size:0.85rem;color:var(--text-muted);margin:0.5rem 0 0;">reports read by clients</p>
+          <div class="stat-number" style="margin-bottom:0.4rem;"><span class="counter" data-target="94">0</span>%</div>
+          <p style="font-size:0.9rem;color:var(--text-muted);margin:0;">Reports read by clients</p>
         </div>
-
-        <div class="reveal reveal-delay-3" style="text-align:center;">
+        <!-- Stat 3: 12 min -->
+        <div class="glass-card reveal reveal-delay-3" style="text-align:center;padding:2rem 1.5rem;">
           <div style="width:3.25rem;height:3.25rem;border-radius:14px;background:var(--accent-glow);display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
           </div>
-          <div class="stat-number" style="margin-bottom:0.5rem;">
-            <span class="counter" data-target="12">0</span> min
-          </div>
-          <p style="color:var(--text-secondary);margin:0;">Average report time</p>
-          <p style="font-size:0.85rem;color:var(--text-muted);margin:0.5rem 0 0;">from first photo to PDF</p>
+          <div class="stat-number" style="margin-bottom:0.4rem;"><span class="counter" data-target="12" data-suffix=" min">0</span></div>
+          <p style="font-size:0.9rem;color:var(--text-muted);margin:0;">From first photo to PDF delivery</p>
         </div>
       </div>
     </div>
