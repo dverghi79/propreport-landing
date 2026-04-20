@@ -182,14 +182,11 @@
     .step-num { width: 2.5rem; height: 2.5rem; border-radius: 12px; background: var(--accent-glow); display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; font-weight: 700; color: var(--accent); flex-shrink: 0; }
 
     /* ── Tags ── */
-    .tag { display: inline-block; background: var(--surface); border: 1px solid var(--border); color: var(--text-muted); font-size: 0.8rem; font-weight: 500; padding: 0.4rem 0.9rem; border-radius: 9999px; transition: all 0.2s; }
+    .tag { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--surface); border: 1px solid var(--border); color: var(--text-muted); font-size: 0.8rem; font-weight: 500; padding: 0.4rem 0.9rem; border-radius: 9999px; transition: all 0.2s; }
     .tag:hover { border-color: var(--border-hover); color: var(--text-secondary); }
 
     /* ── Separator ── */
     .sep { width: 100%; height: 1px; background: var(--border); }
-
-    /* ── Founding box ── */
-    .founding-box { border: 1px solid rgba(16, 185, 129, 0.2); background: rgba(16, 185, 129, 0.03); border-radius: 16px; padding: 2.5rem; }
 
     /* ── Mobile helpers ── */
     .hide-mobile { }
@@ -234,12 +231,7 @@
     .phone-mockup { width: 260px; border-radius: 32px; border: 3px solid rgba(255,255,255,0.08); background: #111113; box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04); overflow: hidden; }
     .phone-mockup-inner { padding: 0.6rem 1.25rem 0.35rem; display: flex; justify-content: space-between; align-items: center; }
 
-    /* ── Pipeline flow diagram ── */
-    .pipeline-flow { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; justify-content: center; margin: 2rem 0; }
-    .pipeline-step { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
-    .pipeline-step-box { width: 80px; height: 80px; border-radius: 14px; background: var(--surface); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; }
-    .pipeline-arrow { font-size: 2rem; color: var(--accent); opacity: 0.6; }
-    @media (max-width: 768px) { .pipeline-flow { flex-direction: column; gap: 0; } .pipeline-arrow { transform: rotate(90deg); margin: 0.5rem 0; } }
+    /* ── HIW flow diagram — glass container ── */
   </style>
 </head>
 <body>
@@ -359,7 +351,7 @@
   </section>
 
   <!-- ═══════════════════════════════════════════
-       STATS
+       STATS WITH ICONS (Pattern 8)
        ═══════════════════════════════════════════ -->
   <section class="accent-section">
     <div class="container">
@@ -370,6 +362,9 @@
 
       <div class="grid-3" style="gap:2rem;">
         <div class="reveal reveal-delay-1" style="text-align:center;">
+          <div style="width:3.25rem;height:3.25rem;border-radius:14px;background:var(--accent-glow);display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          </div>
           <div class="stat-number" style="margin-bottom:0.5rem;">
             <span class="counter" data-target="400">0</span>+
           </div>
@@ -378,6 +373,9 @@
         </div>
 
         <div class="reveal reveal-delay-2" style="text-align:center;">
+          <div style="width:3.25rem;height:3.25rem;border-radius:14px;background:var(--accent-glow);display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          </div>
           <div class="stat-number" style="margin-bottom:0.5rem;">
             <span class="counter" data-target="94">0</span>%
           </div>
@@ -386,6 +384,9 @@
         </div>
 
         <div class="reveal reveal-delay-3" style="text-align:center;">
+          <div style="width:3.25rem;height:3.25rem;border-radius:14px;background:var(--accent-glow);display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
           <div class="stat-number" style="margin-bottom:0.5rem;">
             <span class="counter" data-target="12">0</span> min
           </div>
@@ -397,91 +398,264 @@
   </section>
 
   <!-- ═══════════════════════════════════════════
-       PROBLEM
+       PRODUCT PREVIEW DASHBOARD (Pattern 9)
        ═══════════════════════════════════════════ -->
-  <section id="problems">
+  <section style="padding:3rem 0 5rem;">
     <div class="container">
-      <div class="reveal" style="margin-bottom:3rem;">
-        <p class="section-label">The problem</p>
-        <h2 class="section-title">You spent 4 hours on that inspection report. Your client spent 30 seconds looking for the number.</h2>
-        <p class="section-subtitle">And that's all they cared about.</p>
-      </div>
+      <p class="section-label reveal">Product Preview</p>
 
-      <div class="grid-2" style="gap:2rem;">
-        <div class="reveal reveal-delay-1 glass-card">
-          <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem;">
-            <div class="step-num">01</div>
-            <h3 style="font-size:1.1rem;font-weight:600;color:var(--text-primary);margin:0;">Manual report assembly takes hours</h3>
+      <div class="reveal-scale" style="border-radius:16px;overflow:hidden;border:1px solid var(--border);box-shadow:0 20px 60px rgba(0,0,0,0.5);background:#111113;">
+        <!-- Top bar -->
+        <div style="background:#161618;padding:0.65rem 1rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);">
+          <div style="display:flex;align-items:center;gap:0.75rem;">
+            <div style="display:flex;gap:0.3rem;">
+              <div style="width:8px;height:8px;border-radius:50%;background:#ff5f57;"></div>
+              <div style="width:8px;height:8px;border-radius:50%;background:#ffbd2e;"></div>
+              <div style="width:8px;height:8px;border-radius:50%;background:#28c840;"></div>
+            </div>
+            <span style="font-weight:800;font-size:0.65rem;color:var(--accent);letter-spacing:-0.01em;">PropReport</span>
           </div>
-          <p style="color:var(--text-secondary);line-height:1.65;margin:0;">Export from ClientLook, format in Excel, add photos and comps, brand it, and email it. Your best 4-hour property becomes a 5-hour paperwork job.</p>
+          <div style="display:flex;align-items:center;gap:1rem;">
+            <span style="font-size:0.5rem;color:var(--text-muted);font-family:'JetBrains Mono',monospace;">app.propreport.leanaistudio.com</span>
+            <div style="width:22px;height:22px;border-radius:50%;background:var(--accent-glow);display:flex;align-items:center;justify-content:center;">
+              <span style="font-size:0.45rem;font-weight:700;color:var(--accent);">DV</span>
+            </div>
+          </div>
         </div>
 
-        <div class="reveal reveal-delay-2 glass-card">
-          <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem;">
-            <div class="step-num">02</div>
-            <h3 style="font-size:1.1rem;font-weight:600;color:var(--text-primary);margin:0;">Your CRM reports don't cut it</h3>
+        <!-- Dashboard Body -->
+        <div style="display:flex;min-height:380px;font-family:'Inter',system-ui,sans-serif;">
+          <!-- Sidebar -->
+          <div style="width:150px;flex-shrink:0;background:#0e0e10;border-right:1px solid var(--border);padding:1rem 0.6rem;display:flex;flex-direction:column;gap:0.15rem;" class="hide-mobile">
+            <div style="padding:0.45rem 0.65rem;border-radius:10px;font-size:0.55rem;color:var(--accent);font-weight:600;background:var(--accent-glow);display:flex;align-items:center;gap:0.45rem;margin-bottom:0.3rem;">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+              Dashboard
+            </div>
+            <div style="padding:0.45rem 0.65rem;border-radius:10px;font-size:0.55rem;color:var(--text-muted);display:flex;align-items:center;gap:0.45rem;">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              Reports
+            </div>
+            <div style="padding:0.45rem 0.65rem;border-radius:10px;font-size:0.55rem;color:var(--text-muted);display:flex;align-items:center;gap:0.45rem;">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7v6h6M3 7l3-3m0 0l3 3M21 17v-6h-6m6 0l-3 3m0 0l-3-3"/></svg>
+              Properties
+            </div>
+            <div style="padding:0.45rem 0.65rem;border-radius:10px;font-size:0.55rem;color:var(--text-muted);display:flex;align-items:center;gap:0.45rem;">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+              Templates
+            </div>
+            <div style="padding:0.45rem 0.65rem;border-radius:10px;font-size:0.55rem;color:var(--text-muted);display:flex;align-items:center;gap:0.45rem;">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+              Clients
+            </div>
+            <div style="padding:0.45rem 0.65rem;border-radius:10px;font-size:0.55rem;color:var(--text-muted);display:flex;align-items:center;gap:0.45rem;">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+              Settings
+            </div>
           </div>
-          <p style="color:var(--text-secondary);line-height:1.65;margin:0;">ClientLook and RealNex built-in reporting is too basic. You end up rebuilding in Excel anyway because your clients expect professional, branded PDFs.</p>
-        </div>
 
-        <div class="reveal reveal-delay-1 glass-card">
-          <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem;">
-            <div class="step-num">03</div>
-            <h3 style="font-size:1.1rem;font-weight:600;color:var(--text-primary);margin:0;">Stale data kills credibility</h3>
-          </div>
-          <p style="color:var(--text-secondary);line-height:1.65;margin:0;">By the time brokers show your report to principals, the numbers are outdated. Fresh data is the difference between winning the listing and losing it to someone faster.</p>
-        </div>
+          <!-- Main Content -->
+          <div style="flex:1;padding:1.1rem 1.25rem;overflow:hidden;background:#111113;">
+            <!-- Header -->
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+              <div>
+                <div style="font-size:0.85rem;font-weight:700;color:var(--text-primary);">Report Generation Overview</div>
+                <div style="font-size:0.45rem;color:var(--text-muted);margin-top:0.15rem;font-family:'JetBrains Mono',monospace;">Last synced: Today 2:30 PM &middot; 12 properties active</div>
+              </div>
+              <div style="display:flex;gap:0.35rem;" class="hide-mobile">
+                <div style="padding:0.25rem 0.55rem;border-radius:8px;font-size:0.45rem;color:var(--text-muted);border:1px solid var(--border);">This Week</div>
+                <div style="padding:0.25rem 0.55rem;border-radius:8px;font-size:0.45rem;color:var(--accent);border:1px solid rgba(16, 185, 129, 0.2);background:rgba(16, 185, 129, 0.05);">This Month</div>
+                <div style="padding:0.25rem 0.55rem;border-radius:8px;font-size:0.45rem;color:var(--text-muted);border:1px solid var(--border);">Quarter</div>
+              </div>
+            </div>
 
-        <div class="reveal reveal-delay-2 glass-card">
-          <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem;">
-            <div class="step-num">04</div>
-            <h3 style="font-size:1.1rem;font-weight:600;color:var(--text-primary);margin:0;">You're competing on professionalism, not expertise</h3>
+            <!-- KPI Cards -->
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.55rem;margin-bottom:1rem;">
+              <div style="padding:0.75rem;background:var(--surface);border:1px solid var(--border);border-radius:12px;">
+                <div style="font-size:0.45rem;color:var(--text-muted);margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:0.06em;">Active Reports</div>
+                <div style="font-size:1.2rem;font-weight:800;color:var(--text-primary);line-height:1;">23</div>
+                <div style="font-size:0.42rem;color:var(--green);margin-top:0.25rem;">4 delivered today</div>
+              </div>
+              <div style="padding:0.75rem;background:var(--surface);border:1px solid var(--border);border-radius:12px;">
+                <div style="font-size:0.45rem;color:var(--text-muted);margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:0.06em;">Avg Open Rate</div>
+                <div style="font-size:1.2rem;font-weight:800;color:var(--text-primary);line-height:1;">94%</div>
+                <div style="font-size:0.42rem;color:var(--green);margin-top:0.25rem;">+6% vs last week</div>
+              </div>
+              <div style="padding:0.75rem;background:var(--surface);border:1px solid var(--border);border-radius:12px;">
+                <div style="font-size:0.45rem;color:var(--text-muted);margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:0.06em;">Properties</div>
+                <div style="font-size:1.2rem;font-weight:800;color:var(--text-primary);line-height:1;">12</div>
+                <div style="font-size:0.42rem;color:var(--text-muted);margin-top:0.25rem;">All tracked</div>
+              </div>
+              <div style="padding:0.75rem;background:var(--surface);border:1px solid var(--border);border-radius:12px;">
+                <div style="font-size:0.45rem;color:var(--text-muted);margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:0.06em;">Delivery Status</div>
+                <div style="font-size:1.2rem;font-weight:800;color:var(--green);line-height:1;">On Time</div>
+                <div style="font-size:0.42rem;color:var(--text-muted);margin-top:0.25rem;">100% success rate</div>
+              </div>
+            </div>
+
+            <!-- Chart + Table (desktop) -->
+            <div style="display:grid;grid-template-columns:1fr 1.8fr;gap:0.6rem;" class="hide-mobile">
+              <!-- Chart -->
+              <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:0.75rem;">
+                <div style="font-size:0.48rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.5rem;">Report Generation Trend (6 wk)</div>
+                <svg viewBox="0 0 200 70" style="width:100%;height:auto;" preserveAspectRatio="xMidYMid meet">
+                  <line x1="0" y1="17.5" x2="200" y2="17.5" stroke="rgba(255,255,255,0.04)" stroke-width="0.5"/>
+                  <line x1="0" y1="35" x2="200" y2="35" stroke="rgba(255,255,255,0.04)" stroke-width="0.5"/>
+                  <line x1="0" y1="52.5" x2="200" y2="52.5" stroke="rgba(255,255,255,0.04)" stroke-width="0.5"/>
+                  <polyline points="0,30 33,30 66,30 100,30 133,30 166,30 200,30" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1" stroke-dasharray="4,3"/>
+                  <!-- Area fill -->
+                  <polygon points="0,42 33,38 66,44 100,32 133,28 166,25 200,22 200,70 0,70" fill="url(#emeraldGrad)" opacity="0.15"/>
+                  <defs><linearGradient id="emeraldGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#10b981"/><stop offset="100%" stop-color="transparent"/></linearGradient></defs>
+                  <polyline points="0,42 33,38 66,44 100,32 133,28 166,25 200,22" fill="none" stroke="#10b981" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <circle cx="200" cy="22" r="3" fill="#10b981"/>
+                  <circle cx="200" cy="22" r="6" fill="none" stroke="rgba(16, 185, 129, 0.3)" stroke-width="1"/>
+                  <text x="0" y="68" fill="rgba(255,255,255,0.2)" font-size="5" font-family="monospace">W1</text>
+                  <text x="95" y="68" fill="rgba(255,255,255,0.2)" font-size="5" font-family="monospace">W3</text>
+                  <text x="190" y="68" fill="rgba(255,255,255,0.2)" font-size="5" font-family="monospace">W6</text>
+                </svg>
+              </div>
+
+              <!-- Table -->
+              <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:0.75rem;overflow:hidden;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
+                  <div style="font-size:0.48rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;">Properties Status</div>
+                </div>
+                <table style="width:100%;border-collapse:collapse;">
+                  <thead><tr>
+                    <th style="padding:0.4rem 0.5rem;font-size:0.42rem;font-weight:600;color:var(--text-muted);text-align:left;border-bottom:1px solid var(--border);text-transform:uppercase;letter-spacing:0.06em;">Property</th>
+                    <th style="padding:0.4rem 0.5rem;font-size:0.42rem;font-weight:600;color:var(--text-muted);text-align:left;border-bottom:1px solid var(--border);text-transform:uppercase;letter-spacing:0.06em;">Type</th>
+                    <th style="padding:0.4rem 0.5rem;font-size:0.42rem;font-weight:600;color:var(--text-muted);text-align:left;border-bottom:1px solid var(--border);text-transform:uppercase;letter-spacing:0.06em;">Status</th>
+                  </tr></thead>
+                  <tbody>
+                    <tr><td style="padding:0.4rem 0.5rem;font-size:0.5rem;color:var(--text-primary);border-bottom:1px solid rgba(255,255,255,0.03);">123 Main St</td><td style="padding:0.4rem 0.5rem;font-size:0.5rem;color:var(--text-muted);border-bottom:1px solid rgba(255,255,255,0.03);">Commercial</td><td style="padding:0.4rem 0.5rem;border-bottom:1px solid rgba(255,255,255,0.03);"><span style="font-size:0.4rem;padding:0.12rem 0.4rem;border-radius:9999px;background:rgba(34,197,94,0.1);color:var(--green);font-weight:600;">DELIVERED</span></td></tr>
+                    <tr><td style="padding:0.4rem 0.5rem;font-size:0.5rem;color:var(--text-primary);border-bottom:1px solid rgba(255,255,255,0.03);">456 Oak Ave</td><td style="padding:0.4rem 0.5rem;font-size:0.5rem;color:var(--text-muted);border-bottom:1px solid rgba(255,255,255,0.03);">Office</td><td style="padding:0.4rem 0.5rem;border-bottom:1px solid rgba(255,255,255,0.03);"><span style="font-size:0.4rem;padding:0.12rem 0.4rem;border-radius:9999px;background:rgba(16, 185, 129, 0.1);color:var(--accent);font-weight:600;">PENDING</span></td></tr>
+                    <tr><td style="padding:0.4rem 0.5rem;font-size:0.5rem;color:var(--text-primary);">789 Pine Rd</td><td style="padding:0.4rem 0.5rem;font-size:0.5rem;color:var(--text-muted);">Retail</td><td style="padding:0.4rem 0.5rem;"><span style="font-size:0.4rem;padding:0.12rem 0.4rem;border-radius:9999px;background:rgba(107,114,128,0.1);color:var(--text-muted);font-weight:600;">DRAFT</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Mobile table -->
+            <div style="display:none;" class="show-mobile-only">
+              <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:0.75rem;overflow-x:auto;">
+                <div style="font-size:0.48rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.4rem;">Properties Status</div>
+                <table style="width:100%;border-collapse:collapse;">
+                  <thead><tr><th style="padding:0.35rem 0.5rem;font-size:0.42rem;font-weight:600;color:var(--text-muted);text-align:left;border-bottom:1px solid var(--border);">Property</th><th style="padding:0.35rem 0.5rem;font-size:0.42rem;font-weight:600;color:var(--text-muted);text-align:left;border-bottom:1px solid var(--border);">Status</th></tr></thead>
+                  <tbody>
+                    <tr><td style="padding:0.35rem 0.5rem;font-size:0.5rem;color:var(--text-primary);border-bottom:1px solid rgba(255,255,255,0.03);">123 Main St</td><td style="padding:0.35rem 0.5rem;border-bottom:1px solid rgba(255,255,255,0.03);"><span style="font-size:0.4rem;padding:0.1rem 0.3rem;border-radius:9999px;background:rgba(34,197,94,0.1);color:var(--green);font-weight:600;">DELIVERED</span></td></tr>
+                    <tr><td style="padding:0.35rem 0.5rem;font-size:0.5rem;color:var(--text-primary);">456 Oak Ave</td><td style="padding:0.35rem 0.5rem;"><span style="font-size:0.4rem;padding:0.1rem 0.3rem;border-radius:9999px;background:rgba(16, 185, 129, 0.1);color:var(--accent);font-weight:600;">PENDING</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
-          <p style="color:var(--text-secondary);line-height:1.65;margin:0;">Principals don't care that you know the market. They care that your report looks institutional. Excel dumps lose to polished competition every time.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ═══════════════════════════════════════════
-       HOW IT WORKS
+       PROBLEM SECTION (Pattern 3, 5, 11)
+       ═══════════════════════════════════════════ -->
+  <section id="problems">
+    <div class="container">
+      <div class="reveal" style="margin-bottom:3rem;">
+        <p class="section-label">The problem</p>
+        <h2 class="section-title">You spent <span class="gradient-text">4 hours on that inspection report.</span> Your client spent 30 seconds looking for the number.</h2>
+      </div>
+
+      <div class="grid-3" style="gap:2rem;">
+        <div class="reveal reveal-delay-1 glass-card">
+          <div style="width:3.25rem;height:3.25rem;border-radius:14px;background:rgba(239,68,68,0.1);display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="11" y2="14"/></svg>
+          </div>
+          <h3 style="font-size:1rem;font-weight:700;color:var(--text-primary);margin-bottom:0.5rem;">Manual report assembly takes hours</h3>
+          <p style="font-size:0.9rem;color:var(--text-secondary);line-height:1.6;">Export from ClientLook, format in Excel, add photos and comps, brand it, and email it. Your best property becomes a 5-hour paperwork job.</p>
+        </div>
+
+        <div class="reveal reveal-delay-2 glass-card">
+          <div style="width:3.25rem;height:3.25rem;border-radius:14px;background:rgba(16,185,129,0.1);display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 22h14"/><path d="M5 2h14"/><path d="M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22"/><path d="M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"/></svg>
+          </div>
+          <h3 style="font-size:1rem;font-weight:700;color:var(--text-primary);margin-bottom:0.5rem;">Your CRM reports don't cut it</h3>
+          <p style="font-size:0.9rem;color:var(--text-secondary);line-height:1.6;">ClientLook and RealNex built-in reporting is too basic. You end up rebuilding in Excel anyway because clients expect professional, branded PDFs.</p>
+        </div>
+
+        <div class="reveal reveal-delay-3 glass-card">
+          <div style="width:3.25rem;height:3.25rem;border-radius:14px;background:rgba(113,113,122,0.15);display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg>
+          </div>
+          <h3 style="font-size:1rem;font-weight:700;color:var(--text-primary);margin-bottom:0.5rem;">Stale data kills credibility</h3>
+          <p style="font-size:0.9rem;color:var(--text-secondary);line-height:1.6;">By the time brokers show your report to principals, the numbers are outdated. Fresh data is the difference between winning the listing and losing it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       HOW IT WORKS (Pattern 3, 6, 12)
        ═══════════════════════════════════════════ -->
   <section id="how-it-works">
     <div class="container">
       <div class="reveal" style="margin-bottom:3rem;">
         <p class="section-label">The flow</p>
-        <h2 class="section-title">Walk the property. Take your photos. Your report is ready before you leave.</h2>
+        <h2 class="section-title">Walk the property. Take your photos. Your report is <span class="gradient-text">ready before you leave.</span></h2>
       </div>
 
-      <!-- Pipeline flow diagram -->
-      <div class="reveal" style="margin:3rem 0;">
-        <div class="pipeline-flow">
-          <div class="pipeline-step">
-            <div class="pipeline-step-box">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg>
-            </div>
-            <p style="font-size:0.85rem;font-weight:600;color:var(--text-primary);margin-top:0.5rem;text-align:center;">Inspect</p>
+      <!-- Flow diagram (Pattern 12 — JobLedger layout) -->
+      <div class="reveal hide-mobile" style="display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:3rem;padding:1.5rem 2rem;background:var(--surface);border:1px solid var(--border);border-radius:16px;">
+        <!-- Step A: Inspect -->
+        <div style="display:flex;align-items:center;gap:0.75rem;">
+          <div style="width:2.75rem;height:2.75rem;border-radius:12px;background:var(--accent-glow);display:flex;align-items:center;justify-content:center;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.75" stroke-linecap="round"><path d="M3 7h18M3 7v10c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V7"/><path d="M12 7V4c0-.6.4-1 1-1h6c.6 0 1 .4 1 1v3"/><path d="M9 11h6M9 15h6"/></svg>
           </div>
-          <div class="pipeline-arrow">→</div>
-          <div class="pipeline-step">
-            <div class="pipeline-step-box">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-            </div>
-            <p style="font-size:0.85rem;font-weight:600;color:var(--text-primary);margin-top:0.5rem;text-align:center;">Generate</p>
+          <div>
+            <p style="margin:0;font-size:0.75rem;font-weight:700;color:var(--text-primary);">Inspect</p>
+            <p style="margin:0;font-size:0.6rem;color:var(--text-muted);">Walk & photograph</p>
           </div>
-          <div class="pipeline-arrow">→</div>
-          <div class="pipeline-step">
-            <div class="pipeline-step-box">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
-            </div>
-            <p style="font-size:0.85rem;font-weight:600;color:var(--text-primary);margin-top:0.5rem;text-align:center;">Review</p>
+        </div>
+        <!-- Arrow -->
+        <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:0 0.75rem;">
+          <div style="flex:1;height:2px;background:linear-gradient(90deg,rgba(16,185,129,0.3),rgba(139,92,246,0.2));"></div>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round" style="flex-shrink:0;margin:0 -2px;"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+        <!-- Step B: Generate -->
+        <div style="display:flex;align-items:center;gap:0.75rem;">
+          <div style="width:2.75rem;height:2.75rem;border-radius:12px;background:rgba(139,92,246,0.12);display:flex;align-items:center;justify-content:center;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="1.75" stroke-linecap="round"><path d="M12 2a4 4 0 0 1 4 4c0 1.95-1.4 3.58-3.25 3.93"/><path d="M8.56 6.22A4 4 0 0 1 12 2"/><circle cx="12" cy="14" r="4"/><path d="M12 18v4"/><path d="M8 18l-2 4"/><path d="M16 18l2 4"/></svg>
           </div>
-          <div class="pipeline-arrow">→</div>
-          <div class="pipeline-step">
-            <div class="pipeline-step-box">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round"><path d="M3 8l7.89 5.26a2 2 0 0 0 2.22 0L21 8M5 19h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2z"/></svg>
-            </div>
-            <p style="font-size:0.85rem;font-weight:600;color:var(--text-primary);margin-top:0.5rem;text-align:center;">Deliver</p>
+          <div>
+            <p style="margin:0;font-size:0.75rem;font-weight:700;color:var(--text-primary);">AI builds report</p>
+            <p style="margin:0;font-size:0.6rem;color:var(--text-muted);">Photos → findings</p>
+          </div>
+        </div>
+        <!-- Arrow -->
+        <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:0 0.75rem;">
+          <div style="flex:1;height:2px;background:linear-gradient(90deg,rgba(139,92,246,0.2),rgba(245,158,11,0.2));"></div>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" style="flex-shrink:0;margin:0 -2px;"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+        <!-- Step C: Review -->
+        <div style="display:flex;align-items:center;gap:0.75rem;">
+          <div style="width:2.75rem;height:2.75rem;border-radius:12px;background:rgba(245,158,11,0.12);display:flex;align-items:center;justify-content:center;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="1.75" stroke-linecap="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+          </div>
+          <div>
+            <p style="margin:0;font-size:0.75rem;font-weight:700;color:var(--text-primary);">Review & edit</p>
+            <p style="margin:0;font-size:0.6rem;color:var(--text-muted);">Check details</p>
+          </div>
+        </div>
+        <!-- Arrow -->
+        <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:0 0.75rem;">
+          <div style="flex:1;height:2px;background:linear-gradient(90deg,rgba(245,158,11,0.2),rgba(34,197,94,0.2));"></div>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" style="flex-shrink:0;margin:0 -2px;"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+        <!-- Step D: Deliver -->
+        <div style="display:flex;align-items:center;gap:0.75rem;">
+          <div style="width:2.75rem;height:2.75rem;border-radius:12px;background:rgba(34,197,94,0.1);display:flex;align-items:center;justify-content:center;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="1.75" stroke-linecap="round"><path d="M3 8l7.89 5.26a2 2 0 0 0 2.22 0L21 8M5 19h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2z"/></svg>
+          </div>
+          <div>
+            <p style="margin:0;font-size:0.75rem;font-weight:700;color:var(--text-primary);">Deliver instantly</p>
+            <p style="margin:0;font-size:0.6rem;color:var(--text-muted);">Send to client</p>
           </div>
         </div>
       </div>
@@ -490,8 +664,10 @@
       <div class="grid-3" style="gap:1.25rem;margin-top:3rem;">
         <div class="reveal reveal-delay-1 glass-card">
           <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1.25rem;">
-            <div class="step-num">01</div>
-            <span style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);">Connect & Go</span>
+            <div class="step-num">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
+            </div>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);">Step 1</span>
           </div>
           <h3 style="font-size:1.05rem;font-weight:600;color:var(--text-primary);margin-bottom:0.75rem;">Link your CRM in 5 minutes</h3>
           <p style="color:var(--text-secondary);line-height:1.65;margin:0;">Connect PropReport to ClientLook or RealNex. We automatically read your latest pipeline data. No manual data entry. No API keys.</p>
@@ -499,8 +675,10 @@
 
         <div class="reveal reveal-delay-2 glass-card">
           <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1.25rem;">
-            <div class="step-num">02</div>
-            <span style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);">Customize Once</span>
+            <div class="step-num">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+            </div>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);">Step 2</span>
           </div>
           <h3 style="font-size:1.05rem;font-weight:600;color:var(--text-primary);margin-bottom:0.75rem;">Design your brand template</h3>
           <p style="color:var(--text-secondary);line-height:1.65;margin:0;">Pick which metrics matter to your clients. Add your logo and firm colors. PropReport saves the template and reuses it every week.</p>
@@ -508,24 +686,26 @@
 
         <div class="reveal reveal-delay-3 glass-card">
           <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1.25rem;">
-            <div class="step-num">03</div>
-            <span style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);">Automate & Win</span>
+            <div class="step-num">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            </div>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);">Step 3</span>
           </div>
           <h3 style="font-size:1.05rem;font-weight:600;color:var(--text-primary);margin-bottom:0.75rem;">Reports every Monday at 7am</h3>
-          <p style="color:var(--text-secondary);line-height:1.65;margin:0;">At 7am every Monday, PropReport pulls live data, generates a polished PDF, and emails it to your brokers. You look faster and more professional than the competition.</p>
+          <p style="color:var(--text-secondary);line-height:1.65;margin:0;">At 7am every Monday, PropReport pulls live data, generates a polished PDF, and emails it to your brokers. You look faster and more professional.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ═══════════════════════════════════════════
-       WHO IS THIS FOR
+       BUILT FOR (Pattern 3, 7)
        ═══════════════════════════════════════════ -->
   <section>
     <div class="container">
       <div class="reveal" style="margin-bottom:3rem;">
         <p class="section-label">Built for</p>
-        <h2 class="section-title">CRE brokers on ClientLook and RealNex who want to close more deals with less paperwork</h2>
+        <h2 class="section-title">CRE brokers on ClientLook and RealNex who want to <span class="gradient-text">close more deals with less paperwork</span></h2>
       </div>
 
       <div class="grid-2" style="gap:1.5rem;margin-bottom:2rem;">
@@ -544,35 +724,65 @@
 
       <div class="reveal reveal-delay-3">
         <div style="display:flex;flex-wrap:wrap;gap:0.65rem;">
-          <span class="tag">automated-reports</span>
-          <span class="tag">pipeline-reporting</span>
-          <span class="tag">clientlook-native</span>
-          <span class="tag">realnex-native</span>
-          <span class="tag">live-data</span>
-          <span class="tag">weekly-delivery</span>
+          <span class="tag">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            Automated reports
+          </span>
+          <span class="tag">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            Pipeline-integrated
+          </span>
+          <span class="tag">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 7v6h6M3 7l3-3m0 0l3 3M21 17v-6h-6m6 0l-3 3m0 0l-3-3"/></svg>
+            ClientLook native
+          </span>
+          <span class="tag">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 7v6h6M3 7l3-3m0 0l3 3M21 17v-6h-6m6 0l-3 3m0 0l-3-3"/></svg>
+            RealNex native
+          </span>
+          <span class="tag">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Live data
+          </span>
+          <span class="tag">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Weekly delivery
+          </span>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ═══════════════════════════════════════════
-       WAITLIST / CTA
+       WAITLIST / CTA (Pattern 3, 10)
        ═══════════════════════════════════════════ -->
-  <section id="waitlist">
+  <section id="waitlist" class="accent-section">
     <div class="container">
       <div class="grid-2" style="gap:3rem 5rem;align-items:start;">
         <div>
           <div class="reveal">
             <p class="section-label">Early access · Limited founding member spots</p>
-            <h2 class="section-title" style="margin-bottom:1.25rem;">We're onboarding 50 founding brokers. Here's what you get.</h2>
+            <h2 class="section-title" style="margin-bottom:1.25rem;">We're onboarding <span class="gradient-text">50 founding brokers.</span> Here's what you get.</h2>
             <p class="section-subtitle" style="margin-bottom:2rem;">We're launching a small pilot with CRE brokers on ClientLook and RealNex to perfect PropReport before the full launch.</p>
 
             <p style="font-size:0.875rem;font-weight:600;color:var(--text-primary);margin-bottom:0.75rem;">What you'll get:</p>
             <div style="display:flex;flex-direction:column;gap:0.75rem;font-size:0.875rem;margin-bottom:2rem;">
-              <p style="display:flex;align-items:center;gap:0.625rem;color:var(--text-secondary);margin:0;"><span style="width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0;"></span>Reports generated directly from your pipeline data</p>
-              <p style="display:flex;align-items:center;gap:0.625rem;color:var(--text-secondary);margin:0;"><span style="width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0;"></span>Branded, client-ready PDFs in minutes</p>
-              <p style="display:flex;align-items:center;gap:0.625rem;color:var(--text-secondary);margin:0;"><span style="width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0;"></span>No more Monday morning report backlog</p>
-              <p style="display:flex;align-items:center;gap:0.625rem;color:var(--text-secondary);margin:0;"><span style="width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0;"></span>Direct onboarding from the founder</p>
+              <p style="display:flex;align-items:center;gap:0.625rem;color:var(--text-secondary);margin:0;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+                Reports generated directly from your pipeline data
+              </p>
+              <p style="display:flex;align-items:center;gap:0.625rem;color:var(--text-secondary);margin:0;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+                Branded, client-ready PDFs in minutes
+              </p>
+              <p style="display:flex;align-items:center;gap:0.625rem;color:var(--text-secondary);margin:0;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+                No more Monday morning report backlog
+              </p>
+              <p style="display:flex;align-items:center;gap:0.625rem;color:var(--text-secondary);margin:0;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+                Direct onboarding from the founder
+              </p>
             </div>
 
             <p style="font-size:0.8rem;color:var(--accent);font-weight:600;">First 50 brokers get lifetime founding access. Once spots fill, we close onboarding before launch.</p>
@@ -640,17 +850,16 @@
   </section>
 
   <!-- ═══════════════════════════════════════════
-       FOUNDER
+       FOUNDER PROOF BADGE (Pattern 4)
        ═══════════════════════════════════════════ -->
-  <section>
+  <section style="padding:4rem 0 3rem;">
     <div class="container">
       <div class="reveal" style="text-align:center;">
-        <div style="display:inline-flex;align-items:center;gap:1rem;padding:1.5rem 2rem;border:1px solid var(--border);background:var(--surface);border-radius:16px;backdrop-filter:blur(12px);">
-          <img src="https://leanaistudio.com/founder.jpeg" alt="Dario Verghi" style="width:56px;height:56px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid var(--accent-glow);" />
+        <div style="display:inline-flex;align-items:center;gap:1rem;padding:2rem 2.5rem;border:1px solid rgba(16, 185, 129, 0.2);background:rgba(16, 185, 129, 0.03);border-radius:16px;backdrop-filter:blur(12px);">
+          <img src="https://leanaistudio.com/founder.jpeg" alt="Dario Verghi" style="width:44px;height:44px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid rgba(16, 185, 129, 0.2);" />
           <div style="text-align:left;">
-            <p style="margin:0;font-size:0.875rem;color:var(--text-primary);font-weight:600;">Built by <a href="https://www.linkedin.com/in/verghi/" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;">Dario Verghi</a></p>
-            <p style="margin:0.2rem 0 0;font-size:0.8rem;color:var(--text-secondary);">Former VP who built reporting systems for 200+ teams</p>
-            <p style="margin:0.35rem 0 0;font-size:0.75rem;color:var(--text-muted);line-height:1.5;">I watched the best brokers lose listings because their reports looked amateur. PropReport closes that gap.</p>
+            <p style="margin:0;font-size:0.875rem;color:var(--text-primary);font-weight:600;">A project by <a href="https://leanaistudio.com" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;">LeanAI Studio</a>, built by <a href="https://www.linkedin.com/in/verghi/" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;">Dario Verghi</a></p>
+            <p style="margin:0.25rem 0 0;font-size:0.8rem;color:var(--text-secondary);">Building focused tools for underserved B2B niches.</p>
           </div>
         </div>
       </div>
@@ -662,6 +871,7 @@
        ═══════════════════════════════════════════ -->
   <footer style="padding:3rem 0;border-top:1px solid var(--border);">
     <div class="container">
+      <div class="sep" style="margin-bottom:1.5rem;"></div>
       <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:1.25rem;margin-bottom:1.5rem;">
         <div style="display:flex;align-items:center;gap:0.5rem;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -675,7 +885,7 @@
           <a href="/terms.html" style="color:inherit;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color=getComputedStyle(document.documentElement).getPropertyValue('--text-secondary')" onmouseout="this.style.color=getComputedStyle(document.documentElement).getPropertyValue('--text-muted')">Terms of Service</a>
         </div>
       </div>
-      <div style="border-top:1px solid var(--border);padding-top:1rem;font-size:0.7rem;color:var(--text-muted);line-height:1.8;">
+      <div style="border-top:1px solid var(--border);padding-top:1rem;font-size:0.7rem;color:var(--text-muted);line-height:1.8;opacity:0.6;">
         <p style="margin:0;">© 2026 LeanAI Studio srl — P.IVA/CF: 14561020968</p>
         <p style="margin:0;">PropReport is a product of LeanAI Studio srl</p>
       </div>
