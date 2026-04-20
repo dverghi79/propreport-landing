@@ -1061,10 +1061,17 @@
     function openCalendly(e) {
       e.preventDefault();
       grantConsent();
+      // Google Ads conversion
       try { if (typeof gtag === 'function') gtag('event', 'conversion', { send_to: 'AW-18071371531/z6DhCLq9-JccEIv-jKlD', value: 1.0, currency: 'USD' }); } catch(ex) {}
+      // Vercel Analytics event
       try { if (window.va) window.va('event', { name: 'calendly-booking', data: { product: PRODUCT_SLUG } }); } catch(ex) {}
+      // Log to Google Sheets
       try { fetch('/api/sheet-notify', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: 'calendly-booking', product: PRODUCT_SLUG, source: 'calendly', submitted_at: new Date().toISOString() }) }); } catch(ex) {}
+      // Log to Resend
       try { fetch('/api/resend-notify', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: 'calendly-booking', first_name: 'Calendly Booking', product: PRODUCT_SLUG }) }); } catch(ex) {}
+      // Log to Slack
+      try { fetch('/api/slack-notify', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: 'calendly-booking', product: PRODUCT_SLUG, source: 'calendly' }) }); } catch(ex) {}
+      // Open Calendly popup with product-specific UTMs
       if (window.Calendly) {
         Calendly.initPopupWidget({ url: CALENDLY_URL + '?utm_source=' + encodeURIComponent(PRODUCT_SLUG) + '&utm_medium=lp&utm_campaign=founder-call' });
       }
