@@ -230,6 +230,51 @@
     /* ── Phone mockup ── */
 
     /* ── HIW flow diagram — glass container ── */
+
+    /* AHA MOMENT MORPHING ANIMATION */
+    .aha-wrap{max-width:900px;margin:0 auto;border-radius:16px;overflow:hidden;border:1px solid var(--border);box-shadow:0 20px 60px rgba(0,0,0,0.5);background:#111113;}
+    .aha-chrome{background:#161618;padding:0.6rem 1rem;display:flex;align-items:center;gap:0.75rem;border-bottom:1px solid var(--border);}
+    .aha-dots span{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:4px;}
+    .aha-status{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:600;padding:0.3rem 0.75rem;border-radius:8px;transition:all 0.6s ease;}
+    .aha-status.pain{background:rgba(239,68,68,0.12);color:#ef4444;}
+    .aha-status.syncing{background:rgba(168,85,247,0.12);color:#a855f7;}
+    .aha-status.done{background:rgba(34,197,94,0.12);color:#22c55e;}
+    .aha-body{padding:1.5rem 1.5rem 1rem;position:relative;}
+    .aha-caption{text-align:center;padding:0.75rem 0 1rem;font-size:1.1rem;font-weight:700;transition:all 0.5s ease;min-height:2.5rem;}
+    .aha-form{display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;transition:all 0.8s ease;}
+    .aha-field{padding:0.6rem 0.75rem;border-radius:8px;font-size:0.75rem;font-family:'JetBrains Mono',monospace;transition:all 0.8s ease;position:relative;overflow:hidden;}
+    .aha-field-label{font-size:0.55rem;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.3rem;transition:color 0.6s ease;}
+    .aha-field-value{font-size:0.8rem;font-weight:500;transition:color 0.6s ease;}
+    .aha-field.full{grid-column:1/-1;}
+    .aha-form.state-pain .aha-field{background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.2);}
+    .aha-form.state-pain .aha-field-label{color:rgba(239,68,68,0.6);}
+    .aha-form.state-pain .aha-field-value{color:var(--text-muted);}
+    .aha-form.state-pain .aha-field.has-error{border-color:#ef4444;box-shadow:0 0 0 1px rgba(239,68,68,0.3);}
+    .aha-form.state-pain .aha-field.has-error .aha-field-value{color:#ef4444;text-decoration:line-through;}
+    .aha-form.state-syncing .aha-field{background:rgba(168,85,247,0.05);border:1px solid rgba(168,85,247,0.15);}
+    .aha-form.state-syncing .aha-field-label{color:rgba(168,85,247,0.6);}
+    .aha-form.state-syncing .aha-field-value{color:#a855f7;}
+    .aha-form.state-done .aha-field{background:rgba(34,197,94,0.05);border:1px solid rgba(34,197,94,0.18);}
+    .aha-form.state-done .aha-field-label{color:rgba(34,197,94,0.6);}
+    .aha-form.state-done .aha-field-value{color:var(--text-primary);}
+    .aha-form.state-done .aha-field.has-error{border-color:rgba(34,197,94,0.18);box-shadow:none;}
+    .aha-form.state-done .aha-field.has-error .aha-field-value{color:var(--text-primary);text-decoration:none;}
+    .aha-scan{height:2px;background:transparent;margin:0.75rem 0 0;border-radius:2px;overflow:hidden;position:relative;}
+    .aha-scan-bar{position:absolute;top:0;left:0;width:0;height:100%;border-radius:2px;transition:width 1.2s ease-in-out;}
+    .aha-timer-strip{display:flex;align-items:center;justify-content:center;gap:0.5rem;margin-top:0.75rem;padding:0.5rem 0;font-family:'JetBrains Mono',monospace;font-size:0.75rem;transition:all 0.5s ease;min-height:2rem;}
+    @media (max-width:600px){.aha-form{grid-template-columns:1fr;}}
+    /* ── Logical Closer ── */
+    .closer-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;max-width:900px;margin:0 auto;}
+    .closer-card{border-radius:16px;padding:2rem 1.75rem;}
+    .closer-card-old{background:rgba(239,68,68,0.03);border:1px solid rgba(239,68,68,0.12);}
+    .closer-card-new{background:rgba(34,197,94,0.03);border:1px solid rgba(34,197,94,0.15);}
+    .closer-label{font-size:0.7rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;font-family:'JetBrains Mono',monospace;margin-bottom:1.5rem;display:flex;align-items:center;gap:0.5rem;}
+    .closer-item{display:flex;align-items:flex-start;gap:0.75rem;margin-bottom:1.15rem;}
+    .closer-item:last-child{margin-bottom:0;}
+    .closer-icon{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+    .closer-icon-x{background:rgba(239,68,68,0.1);}
+    .closer-icon-check{background:rgba(34,197,94,0.1);}
+    @media (max-width:768px){.closer-grid{grid-template-columns:1fr;gap:1rem;}}
   </style>
 </head>
 <body>
@@ -409,6 +454,56 @@
           </div>
           <div class="stat-number" style="margin-bottom:0.4rem;"><span class="counter" data-target="12" data-suffix=" min">0</span></div>
           <p style="font-size:0.9rem;color:var(--text-muted);margin:0;">From first photo to PDF delivery</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       AHA MOMENT — MORPHING ANIMATION
+       ═══════════════════════════════════════════ -->
+  <section id="aha-section" style="padding:3rem 0 4rem;">
+    <div class="container">
+      <p class="section-label reveal">Watch the transformation</p>
+      <h2 class="section-title reveal" style="margin-bottom:2.5rem;">
+        From photo dump to <span class="gradient-text">branded PDF in 12 minutes.</span>
+      </h2>
+      <div class="aha-wrap reveal-scale">
+        <div class="aha-chrome">
+          <div class="aha-dots"><span style="background:#ef4444;"></span><span style="background:#fbbf24;"></span><span style="background:#22c55e;"></span></div>
+          <span style="font-size:0.75rem;color:var(--text-muted);font-family:'JetBrains Mono',monospace;">app.propreport.leanaistudio.com</span>
+          <span class="aha-status pain" id="aha-badge">MANUAL</span>
+        </div>
+        <div class="aha-body">
+          <div class="aha-caption" id="aha-caption" style="color:#ef4444;">Move-out inspection done. Now spend 3 hours building the report.</div>
+          <div class="aha-form state-pain" id="aha-form">
+            <div class="aha-field has-error">
+              <div class="aha-field-label">Property</div>
+              <div class="aha-field-value" data-pain="Photos dumped in a folder — no labels" data-done="742 Elm St · 3BR/2BA · Move-out inspection">Photos dumped in a folder — no labels</div>
+            </div>
+            <div class="aha-field has-error">
+              <div class="aha-field-label">Condition Notes</div>
+              <div class="aha-field-value" data-pain="Scribbled on a clipboard" data-done="Living room: minor scuffs · Kitchen: good · Bath: grout wear">Scribbled on a clipboard</div>
+            </div>
+            <div class="aha-field has-error">
+              <div class="aha-field-label">Photos</div>
+              <div class="aha-field-value" data-pain="47 photos — which room is which?" data-done="47 photos · auto-tagged by room · before/after paired">47 photos — which room is which?</div>
+            </div>
+            <div class="aha-field has-error">
+              <div class="aha-field-label">Damage Assessment</div>
+              <div class="aha-field-value" data-pain="Verbal estimate — no documentation" data-done="3 items flagged · $1,240 estimated · deposit deduction ready">Verbal estimate — no documentation</div>
+            </div>
+            <div class="aha-field full has-error">
+              <div class="aha-field-label">Report</div>
+              <div class="aha-field-value" data-pain="Built in Word — 3 hours per property" data-done="12-page PDF · branded · photo grid · condition summary · generated">Built in Word — 3 hours per property</div>
+            </div>
+            <div class="aha-field full has-error">
+              <div class="aha-field-label">Portfolio</div>
+              <div class="aha-field-value" data-pain="8 inspections this week — all behind" data-done="8 reports completed · avg 12 min each · all delivered">8 inspections this week — all behind</div>
+            </div>
+          </div>
+          <div class="aha-scan"><div class="aha-scan-bar" id="aha-scan-bar"></div></div>
+          <div class="aha-timer-strip" id="aha-timer"></div>
         </div>
       </div>
     </div>
@@ -603,6 +698,40 @@
           </div>
           <h3 style="font-size:1rem;font-weight:700;color:var(--text-primary);margin-bottom:0.5rem;">Stale data kills credibility</h3>
           <p style="font-size:0.9rem;color:var(--text-secondary);line-height:1.6;">By the time brokers show your report to principals, the numbers are outdated. Fresh data is the difference between winning the listing and losing it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       LOGICAL CLOSER — OLD WAY vs NEW WAY
+       ═══════════════════════════════════════════ -->
+  <section style="padding:4rem 0;">
+    <div class="container">
+      <p class="section-label reveal">The old way vs. the PropReport way</p>
+      <h2 class="section-title reveal" style="margin-bottom:2.5rem;">
+        Stop spending 3 hours on reports that <span class="gradient-text">should take 12 minutes.</span>
+      </h2>
+      <div class="closer-grid reveal">
+        <div class="closer-card closer-card-old">
+          <div class="closer-label" style="color:#ef4444;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            The Old Way
+          </div>
+          <div class="closer-item"><div class="closer-icon closer-icon-x"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div><p style="font-size:0.9rem;color:var(--text-secondary);margin:0;line-height:1.5;">Dump 50+ photos into a folder and sort them manually later</p></div>
+          <div class="closer-item"><div class="closer-icon closer-icon-x"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div><p style="font-size:0.9rem;color:var(--text-secondary);margin:0;line-height:1.5;">Scribble condition notes on a clipboard, then retype into Word</p></div>
+          <div class="closer-item"><div class="closer-icon closer-icon-x"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div><p style="font-size:0.9rem;color:var(--text-secondary);margin:0;line-height:1.5;">Spend 3 hours per report formatting tables and inserting photos</p></div>
+          <div class="closer-item"><div class="closer-icon closer-icon-x"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div><p style="font-size:0.9rem;color:var(--text-secondary);margin:0;line-height:1.5;">Tenants dispute charges because reports lack photo evidence</p></div>
+        </div>
+        <div class="closer-card closer-card-new">
+          <div class="closer-label" style="color:#22c55e;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="16 10 11 16 8 13"/></svg>
+            With PropReport
+          </div>
+          <div class="closer-item"><div class="closer-icon closer-icon-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div><p style="font-size:0.9rem;color:var(--text-secondary);margin:0;line-height:1.5;">Photos auto-tagged by room with before/after pairing</p></div>
+          <div class="closer-item"><div class="closer-icon closer-icon-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div><p style="font-size:0.9rem;color:var(--text-secondary);margin:0;line-height:1.5;">Condition notes captured on-site and structured automatically</p></div>
+          <div class="closer-item"><div class="closer-icon closer-icon-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div><p style="font-size:0.9rem;color:var(--text-secondary);margin:0;line-height:1.5;">Professional branded PDF generated in under 15 minutes</p></div>
+          <div class="closer-item"><div class="closer-icon closer-icon-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div><p style="font-size:0.9rem;color:var(--text-secondary);margin:0;line-height:1.5;">Every damage item photo-documented with estimated cost — disputes drop 80%</p></div>
         </div>
       </div>
     </div>
@@ -1077,6 +1206,49 @@
       }
       return false;
     }
+
+    /* ── AHA MOMENT ANIMATION ── */
+    (function(){
+      var form=document.getElementById('aha-form');if(!form)return;
+      var badge=document.getElementById('aha-badge'),caption=document.getElementById('aha-caption'),
+          scanBar=document.getElementById('aha-scan-bar'),timer=document.getElementById('aha-timer'),
+          fields=form.querySelectorAll('.aha-field-value'),section=document.getElementById('aha-section'),
+          started=false;
+      var captions={
+        pain:'Move-out inspection done. Now spend 3 hours building the report.',
+        syncing:'PropReport organizing photos and generating condition report\u2026',
+        done:'12-page branded PDF. Photo-tagged. Delivered in 12 minutes.'
+      };
+      function runCycle(){
+        form.className='aha-form state-pain';badge.className='aha-status pain';badge.textContent='MANUAL';
+        caption.textContent=captions.pain;caption.style.color='#ef4444';
+        scanBar.style.width='0';scanBar.style.background='transparent';
+        timer.innerHTML='<span style="color:var(--text-muted);">\u23F1 3 hours per report \u00D7 8 properties this week</span>';
+        fields.forEach(function(f){f.textContent=f.getAttribute('data-pain');});
+        setTimeout(function(){
+          form.className='aha-form state-syncing';badge.className='aha-status syncing';badge.textContent='GENERATING';
+          caption.textContent=captions.syncing;caption.style.color='#a855f7';
+          scanBar.style.width='100%';scanBar.style.background='linear-gradient(90deg,#a855f7,#8b5cf6)';
+          timer.innerHTML='<span style="color:#a855f7;">\u27F3 Tagging photos \u00B7 assessing conditions \u00B7 building PDF\u2026</span>';
+        },3000);
+        setTimeout(function(){
+          fields.forEach(function(f,i){
+            setTimeout(function(){f.textContent=f.getAttribute('data-done');},i*150);
+          });
+        },4500);
+        setTimeout(function(){
+          form.className='aha-form state-done';badge.className='aha-status done';badge.textContent='DELIVERED';
+          caption.textContent=captions.done;caption.style.color='#22c55e';
+          scanBar.style.background='linear-gradient(90deg,#22c55e,#16a34a)';
+          timer.innerHTML='<span style="color:#22c55e;">\u2713 12-page report \u00B7 damage assessment \u00B7 deposit deduction ready</span>';
+        },6000);
+        setTimeout(runCycle,10000);
+      }
+      var ahaObs=new IntersectionObserver(function(entries){
+        if(entries[0].isIntersecting&&!started){started=true;runCycle();}
+      },{threshold:0.3});
+      ahaObs.observe(section);
+    })();
   </script>
 
 </body>
